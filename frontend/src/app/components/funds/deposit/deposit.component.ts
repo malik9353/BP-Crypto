@@ -15,6 +15,7 @@ export class DepositComponent implements OnInit
   addressTag="124sas51";
   form: FormGroup;
   checks=false;
+  coin="ADABTC";
 
   values = [
     { symbol: "ADX", name: "AdEx" },
@@ -182,6 +183,33 @@ export class DepositComponent implements OnInit
     {
       this.checks=false;
     }
+  }
+
+  deposits(v:any)
+  {
+    // this.address="";
+    // this.addressTag="";
+    // this.showSpinner=true;
+    // this.coin=v.symbol;
+    // this.authService.getAddress(this.coin).subscribe(data=>
+    // {
+    //   console.log(data);
+    //   this.address=data.result.address;
+    //   if(data.coin!=null)
+    //   {
+    //     this.avail=data.coin.amount[0];
+    //   }
+    //   if(data.result.addressTag!="")
+    //   {
+    //     this.tagshow=true;
+    //   }
+    //   else
+    //   {
+    //     this.tagshow=false;
+    //   }
+    //   this.addressTag=data.result.addressTag;
+    //   this.showSpinner=false;
+    // })
   }
 
   onSubmit()
