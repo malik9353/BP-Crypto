@@ -1,0 +1,122 @@
+<app-navbar></app-navbar>
+<div class="container-fluid grey lighten-2 pb-5" style="min-height:92vh;">
+  <div class="container white" style="height:180px;">
+    <table class="table table-hover">
+      <thead class="primary-color white-text">
+        <tr>
+          <td>
+            Estimated Value
+          </td>
+          <td>
+            Available
+          </td>
+          <td>
+            In Order
+          </td>
+        </tr>
+      </thead>
+      <tr>
+        <td>
+          <strong style="font-size:20px;"> 1.000 </strong> BTC
+        </td>
+        <td>
+          <strong style="font-size:20px;color:#12bc12;"> 0.5 </strong> BTC
+        </td>
+        <td>
+          <strong style="font-size:20px;color:#ff613a;"> 0.5 </strong> BTC
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ~<strong style="font-size:18px;"> 56 </strong> $
+        </td>
+        <td>
+          ~<strong style="font-size:18px;"> 28 </strong> $
+        </td>
+        <td>
+          ~<strong style="font-size:18px;"> 28 </strong> $
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="row justify-content-md-center mt-5">
+    <div class="list-group col-2 ">
+      <a routerLink="/overview" class="list-group-item list-group-item-action ">Overview</a>
+      <a routerLink="/deposit" class="list-group-item list-group-item-action ">Deposit</a>
+      <a routerLink="/withdraw" class="list-group-item list-group-item-action active">Withdrawal</a>
+      <a routerLink="/trade" class="list-group-item list-group-item-action">Trade History</a>
+    </div>
+    <div class="col-8">
+      <div class=" card">
+        <div class="card-header primary-color white-text">
+          <h5 class="card-title">Withdrawal</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <mat-form-field class="col-4">
+              <mat-select (change)="deposits(values[$event.target.selectedIndex])" placeholder="Select Coin">
+                <mat-option [value]="v" *ngFor="let v of values" >
+                  <img src="../../../../assets/pic/{{v.symbol}}BTC.png" width="30px" height="30px"/><font class="ml-3 mr-3">{{v.name}}</font>{{v.symbol}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="col-3 mt-4" >Available : <span style="color:#12bc12;">8</span></div>
+            <div class="col-2 mt-4" >In Order : <span style="color:#ff613a">4</span></div>
+          </div>
+
+          <div class="mt-5">
+            <form [formGroup]="form" (submit)="onSubmit()">
+              <div class="row justify-content-center">
+                <mat-form-field class="col-6">
+                  <textarea matInput placeholder="Address" class="form-control-sm" formControlName="Address" autocomplete="off" required></textarea>
+                  <mat-icon matSuffix>event_note</mat-icon>
+                  <mat-error *ngIf="form.controls.Address.errors?.required">This field is required</mat-error>
+                  <mat-error *ngIf="form.controls.Address.errors?.minlength && form.controls.Address.dirty">Min character: 15</mat-error>
+                </mat-form-field>
+              </div>
+              <br>
+              <div class="row justify-content-center">
+                <mat-form-field class="col-6">
+                  <input matInput class="form-control-sm" formControlName="Ammount" placeholder="Amount" required>
+                  <mat-icon matSuffix>local_atm</mat-icon>
+                  <mat-error *ngIf="form.controls.Ammount.errors?.required">This field is required</mat-error>
+                  <mat-error *ngIf="form.controls.Ammount.errors?.minlength && form.controls.Ammount.dirty">Min Character: 2</mat-error>
+                  <mat-error *ngIf="form.controls.Ammount.errors?.maxlength && form.controls.Ammount.dirty">Max Character: 15</mat-error>
+                </mat-form-field>
+              </div>
+              <br>
+              <div class="row justify-content-center" *ngIf="tagshow">
+                <mat-form-field class="col-6">
+                  <input matInput class="form-control-sm" formControlName="TagAddress" autocomplete="off" placeholder="Tag Address" required>
+                  <mat-icon matSuffix>navigation</mat-icon>
+                  <mat-error *ngIf="form.controls.TagAddress.errors?.required">This field is required</mat-error>
+                  <mat-error *ngIf="form.controls.TagAddress.errors?.minlength && form.controls.TagAddress.dirty">Min Character: 2</mat-error>
+                  <mat-error *ngIf="form.controls.TagAddress.errors?.maxlength && form.controls.TagAddress.dirty">Max Character: 15</mat-error>
+                </mat-form-field>
+              </div>
+              <br>
+              <div class="row justify-content-center">
+                <mat-checkbox formControlName="Tagshow" id="Tagshow" value="Tagshow" (click)="Tag()">Address Tag</mat-checkbox>
+              </div>
+              <br>
+              <div class="row justify-content-center">
+                <strong>Fee :</strong> 0.5 %
+              </div>
+              <br>
+              <div class="row justify-content-center">
+                  <input  [disabled]="!form.valid" type="submit" class="btn btn-primary col-sm-4" value="Submit"/>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card-footer grey lighten-1">
+          Tips:
+          <ul>
+            <li>The transfer of digital assets between the accounts of the DS Exchange platform is not supported, please ensure that your transfer address is non DS Exchange account address.</li>
+            <li>We will process your withdrawal in 30 minutes, it depends on the blockchain when the assets would finally transfered to your wallet.</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

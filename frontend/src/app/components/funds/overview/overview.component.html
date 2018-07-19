@@ -1,0 +1,105 @@
+<app-navbar></app-navbar>
+<div class="container-fluid grey lighten-2 pb-5" style="min-height:92vh;">
+  <div class="container white" style="height:180px;">
+    <table class="table table-hover">
+      <thead class="primary-color white-text">
+        <tr>
+          <td>
+            Estimated Value
+          </td>
+          <td>
+            Available
+          </td>
+          <td>
+            In Order
+          </td>
+        </tr>
+      </thead>
+      <tr>
+        <td>
+          <strong style="font-size:20px;"> 1.000 </strong> BTC
+        </td>
+        <td>
+          <strong style="font-size:20px;color:#12bc12;"> 0.5 </strong> BTC
+        </td>
+        <td>
+          <strong style="font-size:20px;color:#ff613a;"> 0.5 </strong> BTC
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ~<strong style="font-size:18px;"> 56 </strong> $
+        </td>
+        <td>
+          ~<strong style="font-size:18px;"> 28 </strong> $
+        </td>
+        <td>
+          ~<strong style="font-size:18px;"> 28 </strong> $
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="row justify-content-md-center mt-5">
+    <div class="list-group col-2 ">
+      <a routerLink="/overview" class="list-group-item list-group-item-action active">Overview</a>
+      <a routerLink="/deposit" class="list-group-item list-group-item-action ">Deposit</a>
+      <a routerLink="/withdraw" class="list-group-item list-group-item-action ">Withdrawal</a>
+      <a routerLink="/trade" class="list-group-item list-group-item-action">Trade History</a>
+    </div>
+    <div class="col-8">
+      <div class=" card">
+        <div class="card-header primary-color white-text">
+          <h5 class="card-title">Overview</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Coin</th>
+                <th>Available</th>
+                <th>Total <em style="color:#919499;font-size:12px;">(BTC)</em></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="../../../../assets/pic/XRPBTC.png" style="width:50px;height:50px;"></td>
+                <td>XRPBTC</td>
+                <td>25</td>
+                <td>0.00121</td>
+                <td><button class="btn btn-success" routerLink="/deposit">Deposit</button></td>
+                <td><button class="btn btn-danger" routerLink="/withdraw">Withdraw</button></td>
+              </tr>
+              <tr>
+                <td><img src="../../../../assets/pic/AIONBTC.png" style="width:50px;height:50px;"></td>
+                <td>AIONBTC</td>
+                <td>25</td>
+                <td>0.00121</td>
+                <td><button class="btn btn-success" routerLink="/deposit">Deposit</button></td>
+                <td><button class="btn btn-danger" routerLink="/withdraw">Withdraw</button></td>
+              </tr>
+              <tr>
+                <td><img src="../../../../assets/pic/XLMBTC.png" style="width:50px;height:50px;"></td>
+                <td>XLMBTC</td>
+                <td>25</td>
+                <td>0.00121</td>
+                <td><button class="btn btn-success" routerLink="/deposit">Deposit</button></td>
+                <td><button class="btn btn-danger" routerLink="/withdraw">Withdraw</button></td>
+              </tr>
+              <tr>
+                <td><img src="../../../../assets/pic/IOTABTC.png" style="width:50px;height:50px;"></td>
+                <td>IOTABTC</td>
+                <td>25</td>
+                <td>0.00121</td>
+                <td><button class="btn btn-success" routerLink="/deposit">Deposit</button></td>
+                <td><button class="btn btn-danger" routerLink="/withdraw">Withdraw</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
