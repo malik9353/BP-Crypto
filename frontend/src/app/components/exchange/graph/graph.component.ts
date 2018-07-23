@@ -142,8 +142,18 @@ export class GraphComponent implements OnInit
 
   ngOnInit()
   {
-    $.getScript('../../../../assets/js/trading.js');
-    $.getScript('../../../../assets/js/XRP.js');
+    $.getScript('../../../assets/js/trading.js');
+    $.getScript('../../../assets/js/XRP.js');
+    setTimeout(() =>
+    {
+      $.getScript('../../../assets/js/trading.js');
+      $.getScript('../../../assets/js/XRP.js');
+    }, 2000);
+    setTimeout(() =>
+    {
+      $.getScript('../../../assets/js/trading.js');
+      $.getScript('../../../assets/js/XRP.js');
+    }, 4000);
   }
 
 }
