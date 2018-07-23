@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit
   registerRes;
   loginRes;
 
-  constructor(private formBuilder: FormBuilder, private authService:AuthService, private router: Router)
+  constructor(private formBuilder: FormBuilder, public authService:AuthService, private router: Router,private flashMessagesService: FlashMessagesService)
   {
     this.createForm();
   }
@@ -190,6 +191,11 @@ export class NavbarComponent implements OnInit
     });
   }
 
-  ngOnInit() {}
+  onLogoutClick()
+  {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
 
+  ngOnInit() {}
 }

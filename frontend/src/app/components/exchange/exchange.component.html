@@ -1,6 +1,260 @@
 <app-navbar></app-navbar>
-<main>
-  <p>
-    exchange works!
-  </p>
-</main>
+                                                              <!-- Background -->
+<div class="container-fluid mdb-color lighten-1" style="min-height:95vh">
+                                                              <!-- Content -->
+  <div class="container-fluid row pt-5 pl-5">
+                                                              <!-- Rates Section -->
+    <div class="col-3 mdb-color darken-3 ml-4" id="style-7" style="overflow:scroll;height:135vh;">
+      <app-rates></app-rates>
+    </div>
+                                                              <!-- Right Section -->
+    <div class="row col-8 ml-2" >
+                                                                  <!-- Graph -->
+      <div class="row col-12 mdb-color darken-3" id="tradingview_8e6fe" style="height:80vh">
+        <app-graph></app-graph>
+      </div>
+                                                                  <!-- Below Graph -->
+      <div class="row col-12 mdb-color darken-3 mt-2">
+                                                                <!-- Trading Section -->
+        <div class="row col-10" style="height:54vh">
+                                                                <!-- Buy Section -->
+          <div class="row col-6 white-text">
+            <h5 class="mt-4 green-text"> <strong>Buy XRP</strong> </h5>
+            <form [formGroup]="buy" class="ml-2" (click)="onSubmitBuy()">
+              <mat-form-field class="col-10">
+                <input matInput type="number" formControlName="price" autocomplete="off" required>
+                <mat-placeholder class="placeholder">Price</mat-placeholder>
+                <mat-icon matSuffix>attach_money</mat-icon>
+              </mat-form-field>
+              <mat-form-field class="col-10">
+                <input matInput type="number" formControlName="quantity" autocomplete="off" required>
+                <mat-placeholder class="placeholder">Quantity</mat-placeholder>
+                <mat-icon matSuffix>shopping_cart</mat-icon>
+              </mat-form-field>
+              <div class="mt-2">
+                <button [disabled]="!buy.valid" type="submit" class="col-10  btn btn-success waves-light" mdbWavesEffect>Buy XRP</button>
+              </div>
+            </form>
+          </div>
+                                                                    <!-- Sell Section -->
+          <div class="row col-6 border border-top-0 border-bottom-0 border-dark">
+            <h5 class="mt-4 red-text"> <strong>Sell XRP</strong> </h5>
+            <form [formGroup]="sell" class="ml-2 white-text" (click)="onSubmitSell()">
+              <mat-form-field class="col-10">
+                <input matInput type="number" formControlName="price" autocomplete="off" required>
+                <mat-placeholder class="placeholder">Price</mat-placeholder>
+                <mat-icon matSuffix>attach_money</mat-icon>
+              </mat-form-field>
+              <mat-form-field class="col-10">
+                <input matInput type="number" formControlName="quantity" autocomplete="off" required>
+                <mat-placeholder class="placeholder">Quantity</mat-placeholder>
+                <mat-icon matSuffix>shopping_cart</mat-icon>
+              </mat-form-field>
+              <div class="mt-2">
+                <button  [disabled]="!sell.valid" type="submit" class="col-10 btn btn-danger waves-light" mdbWavesEffect>Buy XRP</button>
+              </div>
+            </form>
+          </div>
+        </div>
+                                                                        <!-- Bid & Ask -->
+        <div class="row col-2" style="height:54vh">
+
+          <table class="table table-sm table-hover white-text">
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td  scope="row">ASK</td>
+                <td class="red-text">0.00121</td>
+                <td >25</td>
+              </tr>
+              <tr>
+                <td  scope="row">ASK</td>
+                <td class="red-text">0.00121</td>
+                <td >25</td>
+              </tr>
+              <tr>
+                <td  scope="row">ASK</td>
+                <td class="red-text">0.00121</td>
+                <td >25</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-sm table-hover white-text">
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td  scope="row">BID</td>
+                <td class="green-text">0.00121</td>
+                <td >25</td>
+              </tr>
+              <tr>
+                <td  scope="row">BID</td>
+                <td class="green-text">0.00121</td>
+                <td >25</td>
+              </tr>
+              <tr>
+                <td  scope="row">BID</td>
+                <td class="green-text">0.00121</td>
+                <td >25</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+                                                                    <!-- Market History -->
+    <div class="col-3 mdb-color darken-3 ml-4 my-2" style="height:60vh;">
+      <h5 class="white-text pt-4">Market Trades</h5>
+      <table class="table mytable table-hover white-text">
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td  scope="row">BID</td>
+            <td class="green-text">0.00121</td>
+            <td >25</td>
+          </tr>
+          <tr>
+            <td  scope="row">BID</td>
+            <td class="green-text">0.00121</td>
+            <td >25</td>
+          </tr>
+          <tr>
+            <td  scope="row">BID</td>
+            <td class="green-text">0.00121</td>
+            <td >25</td>
+          </tr>
+          <tr>
+            <td  scope="row">BID</td>
+            <td class="green-text">0.00121</td>
+            <td >25</td>
+          </tr>
+          <tr>
+            <td  scope="row">BID</td>
+            <td class="green-text">0.00121</td>
+            <td >25</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row col-8 ml-2 my-2" >
+      <div class="row col-12 mdb-color darken-3" style="height:60vh">
+        <mat-tab-group>
+          <mat-tab label="Open Orders">
+            <ng-template matTabContent>
+              <table class=" table table-hover white-text">
+                <thead>
+                  <tr>
+                    <th style="width:20%;">Coin</th>
+                    <th style="width:20%;">Type</th>
+                    <th style="width:20%;">Price</th>
+                    <th style="width:20%;">Ammount</th>
+                    <th style="width:20%;">Total</th>
+                    <th style="width:20%;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td scope="row">XRP</td>
+                    <td>BID</td>
+                    <td class="green-text">0.00121</td>
+                    <td>25</td>
+                    <td>250000</td>
+                    <td>Filled</td>
+                  </tr>
+                  <tr>
+                    <td scope="row">XRP</td>
+                    <td>BID</td>
+                    <td class="green-text">0.00121</td>
+                    <td>25</td>
+                    <td>250000</td>
+                    <td>Filled</td>
+                  </tr>
+                  <tr>
+                    <td scope="row">XRP</td>
+                    <td>BID</td>
+                    <td class="green-text">0.00121</td>
+                    <td>25</td>
+                    <td>250000</td>
+                    <td>Filled</td>
+                  </tr>
+                  <tr>
+                    <td scope="row">XRP</td>
+                    <td>BID</td>
+                    <td class="green-text">0.00121</td>
+                    <td>25</td>
+                    <td>250000</td>
+                    <td>Filled</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </mat-tab>
+          <mat-tab label="Closed Orders">
+            <ng-template matTabContent>
+              <table class="col-12 table table-hover white-text">
+                <thead>
+                  <tr>
+                    <th style="width:25%">Coin</th>
+                    <th style="width:25%">Type</th>
+                    <th style="width:25%">Price</th>
+                    <th style="width:25%">Ammount</th>
+                    <th style="width:25%">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td scope="row">XRP</td>
+                    <td>BID</td>
+                    <td class="green-text">0.00121</td>
+                    <td>25</td>
+                    <td>250000</td>
+                  </tr>
+                  <tr>
+                    <td scope="row">XRP</td>
+                    <td>BID</td>
+                    <td class="green-text">0.00121</td>
+                    <td>25</td>
+                    <td>250000</td>
+                  </tr>
+                  <tr>
+                    <td scope="row">XRP</td>
+                    <td>BID</td>
+                    <td class="green-text">0.00121</td>
+                    <td>25</td>
+                    <td>250000</td>
+                  </tr>
+                  <tr>
+                    <td scope="row">XRP</td>
+                    <td>BID</td>
+                    <td class="green-text">0.00121</td>
+                    <td>25</td>
+                    <td>250000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

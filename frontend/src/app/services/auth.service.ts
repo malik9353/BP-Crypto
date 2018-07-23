@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-// import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService
 {
-  domain = "http://localhost:3001";
+  domain = "";
   authToken;
   user;
   options;
@@ -86,7 +85,7 @@ export class AuthService
 
   loggedIn()
   {
-    // return tokenNotExpired();
+    return !!localStorage.getItem('token');
   }
 
   changepass(pass)

@@ -1,46 +1,7 @@
-<app-navbar></app-navbar>
-<div class="container-fluid grey lighten-2 pb-5" style="min-height:92vh;">
-  <div class="container white" style="height:180px;">
-    <table class="table table-hover">
-      <thead class="primary-color">
-        <tr>
-          <td style="color:white;">
-            Estimated Value
-          </td>
-          <td style="color:white;">
-            Available
-          </td>
-          <td style="color:white;">
-            In Order
-          </td>
-        </tr>
-      </thead>
-      <tr>
-        <td>
-          <strong style="font-size:20px;"> 1.000 </strong> BTC
-        </td>
-        <td>
-          <strong style="font-size:20px;color:#12bc12;"> 0.5 </strong> BTC
-        </td>
-        <td>
-          <strong style="font-size:20px;color:#ff613a;"> 0.5 </strong> BTC
-        </td>
-      </tr>
-      <tr>
-        <td>
-          ~<strong style="font-size:18px;"> 56 </strong> $
-        </td>
-        <td>
-          ~<strong style="font-size:18px;"> 28 </strong> $
-        </td>
-        <td>
-          ~<strong style="font-size:18px;"> 28 </strong> $
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="row justify-content-md-center mt-5">
-    <div class="list-group col-2 ">
+<app-assets></app-assets>
+<div class="container-fluid grey lighten-2 pb-5" style="min-height:80vh;">
+  <div class="row justify-content-md-center">
+    <div class="list-group col-2">
       <a routerLink="/overview" class="list-group-item list-group-item-action">Overview</a>
       <a routerLink="/deposit" class="list-group-item list-group-item-action active">Deposit</a>
       <a routerLink="/withdraw" class="list-group-item list-group-item-action ">Withdrawal</a>
