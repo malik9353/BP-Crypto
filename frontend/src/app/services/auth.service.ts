@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService
 {
-  domain = "http://localhost:3001";
+  domain = "";
   authToken;
   user;
   options;
