@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
-@Component({
+@Component(
+{
   selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.scss']
 })
+
 export class GraphComponent implements OnInit
 {
 
@@ -142,18 +144,11 @@ export class GraphComponent implements OnInit
 
   ngOnInit()
   {
-    $.getScript('../../../assets/js/trading.js');
+    setTimeout(() =>
+    {
+      $.getScript('../../../assets/js/trading.js');
+    }, 8000);
     $.getScript('../../../assets/js/XRP.js');
-    setTimeout(() =>
-    {
-      $.getScript('../../../assets/js/trading.js');
-      $.getScript('../../../assets/js/XRP.js');
-    }, 2000);
-    setTimeout(() =>
-    {
-      $.getScript('../../../assets/js/trading.js');
-      $.getScript('../../../assets/js/XRP.js');
-    }, 4000);
   }
 
 }
