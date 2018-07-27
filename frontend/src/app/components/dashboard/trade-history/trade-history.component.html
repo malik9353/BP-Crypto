@@ -42,6 +42,11 @@
             <font>{{hist.origQty}}</font>
           </td>
         </tr>
+        <tr>
+          <td colspan="5" class="text-center" *ngIf="history?.length == 0">
+            <font size=4>You have no Trade History !!</font>
+          </td>
+        </tr>
       </table>
     </div>
 </div>

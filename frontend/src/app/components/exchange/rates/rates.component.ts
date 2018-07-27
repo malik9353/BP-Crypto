@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../../../services/socket.service';
 import { GraphComponent } from '../graph/graph.component';
+import { ExchangeComponent } from '../exchange.component';
 
 @Component({
   selector: 'app-rates',
@@ -14,7 +15,7 @@ export class RatesComponent implements OnInit
   alpha;
   bitcoin:any;
 
-  constructor(private socketService: SocketService, private graphComponent:GraphComponent) {}
+  constructor(private socketService: SocketService, private graphComponent:GraphComponent, private exchangeComponent:ExchangeComponent) { }
 
   prices(crypto)
   {
@@ -24,10 +25,13 @@ export class RatesComponent implements OnInit
   coin(cryptos)
   {
     this.graphComponent.chart(cryptos);
+    this.exchangeComponent.coins(cryptos);
+    this.exchangeComponent.prices(cryptos);
   }
 
   ngOnInit()
   {
+    this.show=false;
     setTimeout(() =>
     {
       this.prices("XRPBTC");
@@ -35,6 +39,7 @@ export class RatesComponent implements OnInit
 
     this.socketService.getPrice().subscribe(data =>
     {
+      // console.log(data);
       this.alpha=data;
       this.rates=this.alpha.tickers;
       this.show=true;

@@ -3,7 +3,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';import { ModalModule, WavesModule, InputsModule } from 'angular-bootstrap-md'
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
@@ -62,6 +62,7 @@ import { CoinsComponent } from './components/dashboard/user-details/coins/coins.
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    ModalModule, WavesModule, InputsModule,
     MatCheckboxModule,
     AppRoutingModule,
     LayoutModule,
@@ -83,7 +84,7 @@ import { CoinsComponent } from './components/dashboard/user-details/coins/coins.
     ChartsModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [AuthService, AuthGuard, GraphComponent],
+  providers: [AuthService, AuthGuard, GraphComponent, ExchangeComponent, DashboardComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

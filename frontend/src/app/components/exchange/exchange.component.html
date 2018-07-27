@@ -18,40 +18,65 @@
                                                                 <!-- Trading Section -->
         <div class="row col-10" style="height:54vh">
                                                                 <!-- Buy Section -->
+          <div class="container-fluid row show-hide-message mdb-color darken-3">
+            <div class="col-12 text-center">
+              <flash-messages></flash-messages>
+            </div>
+          </div>
           <div class="row col-6 white-text">
-            <h5 class="mt-4 green-text"> <strong>Buy XRP</strong> </h5>
-            <form [formGroup]="buy" class="ml-2" (click)="onSubmitBuy()">
+            <h5 class="mt-4 green-text"> <strong>Buy {{coinz}}</strong> </h5>
+            <form [formGroup]="buy" class="ml-2" (submit)="onSubmitBuy()">
               <mat-form-field class="col-10">
-                <input matInput type="number" formControlName="price" autocomplete="off" required>
+                <input matInput type="number" formControlName="price" autocomplete="off" value="{{prize}}" [(ngModel)]="p1" >
                 <mat-placeholder class="placeholder">Price</mat-placeholder>
                 <mat-icon matSuffix>attach_money</mat-icon>
+                <mat-error *ngIf="buy.controls.price.errors?.required">
+                    Price is required !!!
+                </mat-error>
               </mat-form-field>
               <mat-form-field class="col-10">
-                <input matInput type="number" formControlName="quantity" autocomplete="off" required>
+                <input matInput type="number" formControlName="quantity" autocomplete="off" [(ngModel)]="a1" >
                 <mat-placeholder class="placeholder">Quantity</mat-placeholder>
                 <mat-icon matSuffix>shopping_cart</mat-icon>
+                <mat-error *ngIf="buy.controls.quantity.errors?.required">
+                    Quantity is required !!!
+                </mat-error>
               </mat-form-field>
+              <div>
+                <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Available&nbsp; : </font><font style="font-size:13px;color:#e3e7ef;">{{bitcoin}}</font> <br/>
+                <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Amount&nbsp;&nbsp; :&nbsp;&nbsp;</font><font style="font-size:13px;color:#e3e7ef;">{{(+a1) * 10}}</font>
+              </div>
               <div class="mt-2">
-                <button [disabled]="!buy.valid" type="submit" class="col-10  btn btn-success waves-light" mdbWavesEffect>Buy XRP</button>
+                <button [disabled]="!buy.valid || processing" type="submit" class="col-10  btn btn-success waves-light" mdbWavesEffect>Buy {{coinz}}</button>
               </div>
             </form>
           </div>
                                                                     <!-- Sell Section -->
           <div class="row col-6 border border-top-0 border-bottom-0 border-dark">
-            <h5 class="mt-4 red-text"> <strong>Sell XRP</strong> </h5>
-            <form [formGroup]="sell" class="ml-2 white-text" (click)="onSubmitSell()">
+            <h5 class="mt-4 red-text"> <strong>Sell {{coinz}}</strong> </h5>
+            <form [formGroup]="sell" class="ml-2 white-text" (submit)="onSubmitSell()">
               <mat-form-field class="col-10">
-                <input matInput type="number" formControlName="price" autocomplete="off" required>
+                <input matInput type="number" formControlName="price" autocomplete="off" value="{{prize}}" [(ngModel)]="p2" >
                 <mat-placeholder class="placeholder">Price</mat-placeholder>
                 <mat-icon matSuffix>attach_money</mat-icon>
+                <mat-error *ngIf="sell.controls.price.errors?.required && sell.controls.price.dirty">
+                    Price is required !!!
+                </mat-error>
               </mat-form-field>
               <mat-form-field class="col-10">
-                <input matInput type="number" formControlName="quantity" autocomplete="off" required>
+                <input matInput type="number" formControlName="quantity" autocomplete="off" [(ngModel)]="a2" >
                 <mat-placeholder class="placeholder">Quantity</mat-placeholder>
                 <mat-icon matSuffix>shopping_cart</mat-icon>
+                <mat-error *ngIf="sell.controls.quantity.errors?.required && sell.controls.quantity.dirty">
+                    Quantity is required !!!
+                </mat-error>
               </mat-form-field>
+              <div>
+                <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Available&nbsp; : </font><font style="font-size:13px;color:#e3e7ef;">{{altcoin}}</font> <br/>
+                <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Amount&nbsp;&nbsp; :&nbsp;&nbsp;</font><font style="font-size:13px;color:#e3e7ef;">{{a2*p2}}</font>
+              </div>
               <div class="mt-2">
-                <button  [disabled]="!sell.valid" type="submit" class="col-10 btn btn-danger waves-light" mdbWavesEffect>Buy XRP</button>
+                <button  [disabled]="!sell.valid || processing" type="submit" class="col-10 btn btn-danger waves-light" mdbWavesEffect>Buy {{coinz}}</button>
               </div>
             </form>
           </div>
@@ -59,7 +84,7 @@
                                                                         <!-- Bid & Ask -->
         <div class="row col-2" style="height:54vh">
 
-          <table class="table table-sm table-hover white-text">
+          <table class="table mytable table-sm table-hover white-text">
             <thead>
               <tr>
                 <th scope="col">Type</th>
@@ -68,24 +93,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td  scope="row">ASK</td>
-                <td class="red-text">0.00121</td>
-                <td >25</td>
-              </tr>
-              <tr>
-                <td  scope="row">ASK</td>
-                <td class="red-text">0.00121</td>
-                <td >25</td>
-              </tr>
-              <tr>
-                <td  scope="row">ASK</td>
-                <td class="red-text">0.00121</td>
-                <td >25</td>
+              <tr *ngFor="let ask of bidsasks">
+                <td scope="row" style="font-size:10px;">ASk</td>
+                <td class="red-text"  style="font-size:10px;">{{ask.askPrice}}</td>
+                <td style="font-size:10px;">{{ask.askQty | slice:0:6}}</td>
               </tr>
             </tbody>
           </table>
-          <table class="table table-sm table-hover white-text">
+          <table class="table mytable table-sm table-hover white-text">
             <thead>
               <tr>
                 <th scope="col">Type</th>
@@ -94,21 +109,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td  scope="row">BID</td>
-                <td class="green-text">0.00121</td>
-                <td >25</td>
-              </tr>
-              <tr>
-                <td  scope="row">BID</td>
-                <td class="green-text">0.00121</td>
-                <td >25</td>
-              </tr>
-              <tr>
-                <td  scope="row">BID</td>
-                <td class="green-text">0.00121</td>
-                <td >25</td>
-              </tr>
+                <tr *ngFor="let bid of bidsasks">
+                  <td scope="row" style="font-size:10px;">BID</td>
+                  <td class="green-text" style="font-size:10px;">{{bid.bidPrice}}</td>
+                  <td style="font-size:10px;">{{bid.bidQty | slice:0:6}}</td>
+                </tr>
             </tbody>
           </table>
         </div>
@@ -126,30 +131,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td  scope="row">BID</td>
-            <td class="green-text">0.00121</td>
-            <td >25</td>
-          </tr>
-          <tr>
-            <td  scope="row">BID</td>
-            <td class="green-text">0.00121</td>
-            <td >25</td>
-          </tr>
-          <tr>
-            <td  scope="row">BID</td>
-            <td class="green-text">0.00121</td>
-            <td >25</td>
-          </tr>
-          <tr>
-            <td  scope="row">BID</td>
-            <td class="green-text">0.00121</td>
-            <td >25</td>
-          </tr>
-          <tr>
-            <td  scope="row">BID</td>
-            <td class="green-text">0.00121</td>
-            <td >25</td>
+          <tr *ngFor="let mark of market">
+            <td scope="row"><span *ngIf="mark.maker" style="color:red;">Sell</span><span *ngIf="!mark.maker" style="color:green;">Buy</span></td>
+            <td>{{mark.quantity}}</td>
+            <td>{{mark.price}}</td>
           </tr>
         </tbody>
       </table>
@@ -171,37 +156,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td scope="row">XRP</td>
-                    <td>BID</td>
-                    <td class="green-text">0.00121</td>
-                    <td>25</td>
-                    <td>250000</td>
-                    <td>Filled</td>
+                  <tr *ngFor="let trade of unfilled">
+                    <td scope="row">{{trade.status.symbol}}</td>
+                    <td>{{trade.status.side}}</td>
+                    <td>{{trade.status.price}}</td>
+                    <td>{{trade.status.origQty}}</td>
+                    <td>{{trade.status.price*trade.status.origQty}}</td>
+                    <td>UNFILLED</td>
+                    <td>
+                        <button class="btn btn-danger" (click)="cancelone(trade.status.orderId,trade.status.symbol)"><span class="glyphicon glyphicon-trash"></span></button>
+                    </td>
                   </tr>
                   <tr>
-                    <td scope="row">XRP</td>
-                    <td>BID</td>
-                    <td class="green-text">0.00121</td>
-                    <td>25</td>
-                    <td>250000</td>
-                    <td>Filled</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">XRP</td>
-                    <td>BID</td>
-                    <td class="green-text">0.00121</td>
-                    <td>25</td>
-                    <td>250000</td>
-                    <td>Filled</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">XRP</td>
-                    <td>BID</td>
-                    <td class="green-text">0.00121</td>
-                    <td>25</td>
-                    <td>250000</td>
-                    <td>Filled</td>
+                    <td colspan="6" class="text-center" *ngIf="unfilled?.length == 0">
+                      You have no Open Orders !!
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -220,33 +189,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td scope="row">XRP</td>
-                    <td>BID</td>
-                    <td class="green-text">0.00121</td>
-                    <td>25</td>
-                    <td>250000</td>
+                  <tr *ngFor="let trade of filled">
+                    <td scope="row">{{trade.status.symbol}}</td>
+                    <td>{{trade.status.side}}</td>
+                    <td>{{trade.status.price}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
+                    <td>{{trade.status.origQty}} &nbsp;<em style="color:#919499;font-size:12px;">{{trade.status.symbol}}</em></td>
+                    <td>{{trade.status.origQty*trade.status.price}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
                   </tr>
                   <tr>
-                    <td scope="row">XRP</td>
-                    <td>BID</td>
-                    <td class="green-text">0.00121</td>
-                    <td>25</td>
-                    <td>250000</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">XRP</td>
-                    <td>BID</td>
-                    <td class="green-text">0.00121</td>
-                    <td>25</td>
-                    <td>250000</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">XRP</td>
-                    <td>BID</td>
-                    <td class="green-text">0.00121</td>
-                    <td>25</td>
-                    <td>250000</td>
+                    <td colspan="6" class="text-center" *ngIf="filled?.length == 0">
+                      You have no Closed Orders !!
+                    </td>
                   </tr>
                 </tbody>
               </table>

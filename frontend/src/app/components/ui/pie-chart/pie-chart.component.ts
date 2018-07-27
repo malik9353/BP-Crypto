@@ -11,9 +11,9 @@ import * as Chart from 'chart.js'
 
 export class PieChartComponent implements OnInit
 {
-  // btc=localStorage.getItem('BTC');
-  // xrp=localStorage.getItem('XRP');
-  // ada=localStorage.getItem('ADA');
+  btc=localStorage.getItem('BTC');
+  xrp=localStorage.getItem('XRP');
+  ada=localStorage.getItem('ADA');
 
   canvas: any;
   ctx: any;
@@ -28,7 +28,7 @@ export class PieChartComponent implements OnInit
         labels: ['BTC', 'XRP', 'ADA'],
         datasets: [{
           label: '# of Votes',
-          data: [15,25,30],
+          data: [this.btc,this.xrp,this.ada],
           backgroundColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(54, 162, 235, 1)',

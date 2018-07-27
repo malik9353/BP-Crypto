@@ -1,5 +1,5 @@
 <app-assets></app-assets>
-<div class="container-fluid grey lighten-2 pb-5" style="min-height:80vh;">
+<div class="container-fluid grey lighten-2 pb-5" style="min-height:60vh;">
   <div class="row justify-content-md-center">
     <div class="list-group col-2">
       <a routerLink="/overview" class="list-group-item list-group-item-action active">Overview</a>
@@ -25,37 +25,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><img src="../../../../assets/pic/XRPBTC.png" style="width:40px;height:40px;"></td>
-                <td>XRPBTC</td>
-                <td>25</td>
-                <td>0.00121</td>
-                <td><button class="btn btn-success" routerLink="/deposit">Deposit</button></td>
-                <td><button class="btn btn-danger" routerLink="/withdraw">Withdraw</button></td>
+              <tr *ngFor="let asset of assests">
+                <td><img src="../../../../assets/pic/{{asset.coinName}}.png" style="width:25px;height:25px;"></td>
+                <td>{{asset.coinName}}&nbsp;&nbsp;<em style="color:#919499;font-size:12px;">SUB</em></td>
+                <td>{{asset.amount[0]}}</td>
+                <td>{{asset.amount[1]}}</td>
+                <td><button class="btn btn-success" routerLink="/deposit" style="height:30px">Deposit</button></td>
+                <td><button class="btn btn-danger" routerLink="/withdraw" style="height:30px">Withdraw</button></td>
               </tr>
               <tr>
-                <td><img src="../../../../assets/pic/AIONBTC.png" style="width:50px;height:50px;"></td>
-                <td>AIONBTC</td>
-                <td>25</td>
-                <td>0.00121</td>
-                <td><button class="btn btn-success" routerLink="/deposit">Deposit</button></td>
-                <td><button class="btn btn-danger" routerLink="/withdraw">Withdraw</button></td>
-              </tr>
-              <tr>
-                <td><img src="../../../../assets/pic/XLMBTC.png" style="width:50px;height:50px;"></td>
-                <td>XLMBTC</td>
-                <td>25</td>
-                <td>0.00121</td>
-                <td><button class="btn btn-success" routerLink="/deposit">Deposit</button></td>
-                <td><button class="btn btn-danger" routerLink="/withdraw">Withdraw</button></td>
-              </tr>
-              <tr>
-                <td><img src="../../../../assets/pic/IOTABTC.png" style="width:50px;height:50px;"></td>
-                <td>IOTABTC</td>
-                <td>25</td>
-                <td>0.00121</td>
-                <td><button class="btn btn-success" routerLink="/deposit">Deposit</button></td>
-                <td><button class="btn btn-danger" routerLink="/withdraw">Withdraw</button></td>
+                <td colspan="6" class="text-center" *ngIf="assests?.length == 0">
+                  You have no assets !!
+                </td>
               </tr>
             </tbody>
           </table>

@@ -7,7 +7,7 @@
       <br><br>
       <app-loading-spinner *ngIf="showSpinner" style="position:absolute;left:45%;"></app-loading-spinner>
       <table cellspacing=25px style="position:relative;left:5%;width:90%;">
-        <tr *ngIf="!showSpinner">
+        <tr>
           <th>
             <font size=4>Coin</font>
           </th>
@@ -600,9 +600,8 @@
           </td>
         </tr>
         <tr *ngIf="(total | json) == ({} | json)">
-          <td colspan="5">
-             <br>
-            <font size=4 class="ml-auto">  You have no Assets </font>
+          <td colspan="5" class="text-center">
+            <font size=4>  You have no Assets </font>
           </td>
         </tr>
       </table>

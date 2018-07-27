@@ -25,29 +25,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><img src="../../../../assets/pic/XRPBTC.png" style="width:50px;height:50px;"></td>
-                <td>XRPBTC</td>
-                <td>SELL</td>
-                <td>0.00055 <em style="color:#919499;font-size:12px;">XRPBTC</em></td>
-                <td>25 <em style="color:#919499;font-size:12px;">XRPBTC</em></td>
-                <td>0.01809 <em style="color:#919499;font-size:12px;">BTC</em></td>
+              <tr *ngFor="let trade of filled">
+                <td scope="row"><img src="../../../../assets/pic/{{trade.status.symbol}}.png" style="width:30px;height:30px;"></td>
+                <td>{{trade.status.symbol}}</td>
+                <td>{{trade.status.side}}</td>
+                <td>{{trade.status.price}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
+                <td>{{trade.status.origQty}} &nbsp;<em style="color:#919499;font-size:12px;">{{trade.status.symbol}}</em></td>
               </tr>
               <tr>
-                <td><img src="../../../../assets/pic/AIONBTC.png" style="width:50px;height:50px;"></td>
-                <td>AIONBTC</td>
-                <td>SELL</td>
-                <td>0.00055 <em style="color:#919499;font-size:12px;">AIONBTC</em></td>
-                <td>25 <em style="color:#919499;font-size:12px;">AIONBTC</em></td>
-                <td>0.01809 <em style="color:#919499;font-size:12px;">BTC</em></td>
-              </tr>
-              <tr>
-                <td><img src="../../../../assets/pic/XLMBTC.png" style="width:50px;height:50px;"></td>
-                <td>XLMBTC</td>
-                <td>SELL</td>
-                <td>0.00055 <em style="color:#919499;font-size:12px;">XLMBTC</em></td>
-                <td>25 <em style="color:#919499;font-size:12px;">XLMBTC</em></td>
-                <td>0.01809 <em style="color:#919499;font-size:12px;">BTC</em></td>
+                <td colspan="6" class="text-center" *ngIf="filled?.length == 0">
+                  You have no Trade History !!
+                </td>
               </tr>
             </tbody>
           </table>

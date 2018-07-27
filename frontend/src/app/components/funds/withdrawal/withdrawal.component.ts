@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { FlashMessagesService } from 'angular2-flash-messages';
+import { AuthService } from '../../../services/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 // import 'rxjs/add/observable/interval';
@@ -12,10 +13,17 @@ import { finalize } from 'rxjs/operators';
 })
 export class WithdrawalComponent implements OnInit
 {
+  showSpinner:boolean = false;
+  coin="ADX";
+  alpha={ symbol: "ADX", name: "AdEx" };
+  avail=0;
+  res;
+  processing=false;
   address="0x14d4e1df842919b3b433111df15b6d16b5b8b0ee";
   addressTag="124sas51";
   form: FormGroup;
   tagshow=false;
+  ret;
   values = [
     { symbol: "ADX", name: "AdEx" },
     { symbol: "ADA", name: "Cardano" },
@@ -155,7 +163,7 @@ export class WithdrawalComponent implements OnInit
     { symbol: "ZRX", name: "0x" }
   ];
 
-  constructor(private formBuilder: FormBuilder)
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private _flashMessagesService: FlashMessagesService)
   {
     this.createForm();
   }
@@ -210,32 +218,33 @@ export class WithdrawalComponent implements OnInit
       this.tagshow=false;
     }
   }
-  
-  deposits(v:any)
+
+  withdraw(v:any)
   {
-    // this.address="";
-    // this.addressTag="";
-    // this.showSpinner=true;
-    // this.coin=v.symbol;
-    // this.authService.getAddress(this.coin).subscribe(data=>
-    // {
-    //   console.log(data);
-    //   this.address=data.result.address;
-    //   if(data.coin!=null)
-    //   {
-    //     this.avail=data.coin.amount[0];
-    //   }
-    //   if(data.result.addressTag!="")
-    //   {
-    //     this.tagshow=true;
-    //   }
-    //   else
-    //   {
-    //     this.tagshow=false;
-    //   }
-    //   this.addressTag=data.result.addressTag;
-    //   this.showSpinner=false;
-    // })
+    this.coin=v.symbol;
+    this.authService.getAddress(this.coin).subscribe(data=>
+    {
+      this.res=data;
+      if(this.res.coin!=null)
+      {
+        this.avail=this.res.coin.amount[0];
+      }
+    })
+  }
+
+  onSubmit()
+  {
+    const withdraw = {
+      coinName: this.coin,
+      amount: this.form.get('Ammount').value,
+      address: this.form.get('Address').value,
+      tag: this.form.get('TagAddress').value
+    }
+    this.authService.withdraws(withdraw).subscribe(data=>
+    {
+      this.ret=data;
+      this._flashMessagesService.show(this.ret.message, { cssClass: 'alert-info', timeout: 2000 });
+    });
   }
 
   ngOnInit() {

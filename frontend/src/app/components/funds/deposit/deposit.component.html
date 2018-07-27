@@ -13,23 +13,26 @@
           <h5 class="card-title">Deposit</h5>
         </div>
         <div class="card-body">
+          <div class="col-12 text-center">
+            <flash-messages></flash-messages>
+          </div>
           <!-- <app-loading-spinner *ngIf="showSpinner" style="position:absolute;left:55%;"></app-loading-spinner> -->
           <div class="row">
             <mat-form-field class="col-4">
-              <mat-select (change)="deposits(values[$event.target.selectedIndex])" placeholder="Select Coin">
+              <mat-select (selectionChange)="deposits($event.value)" placeholder="Select Coin">
                 <mat-option [value]="v" *ngFor="let v of values" >
                   <img src="../../../../assets/pic/{{v.symbol}}BTC.png" width="30px" height="30px"/><font class="ml-3 mr-3">{{v.name}}</font>{{v.symbol}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <div class="col-3 mt-4" >Available : <span style="color:#12bc12;">8</span></div>
-            <div class="col-2 mt-4" >In Order : <span style="color:#ff613a">4</span></div>
+            <div class="col-3 mt-4" >Available {{coin}} : <span style="color:#12bc12;">{{avail}}</span></div>
+            <!-- <div class="col-2 mt-4" >In Order : <span style="color:#ff613a">4</span></div> -->
           </div>
           <div class="mt-5">
-            <div class="mb-1">
-              Your <font style="color:red;"> XRPBTC</font> Shares Deposit address：<strong style="font-size:12px;">{{address}}</strong><br>
-            </div>
             <div class="mb-2">
+              Your <font style="color:red;"> {{coin}}</font> Shares Deposit address：<strong style="font-size:12px;">{{address}}</strong><br>
+            </div>
+            <div class="mb-4" *ngIf="tagshow">
               <span> AddressTag : <strong style="font-size:12px;">{{addressTag}}</strong></span><br>
             </div>
             <div class="mb-1">
@@ -42,7 +45,7 @@
               <label  for="someSwitchOptionSuccess"></label>Receive coins
           </div>
           <br><br>
-          <form [formGroup]="form" (click)="onSubmit()" *ngIf="checks">
+          <form [formGroup]="form" (submit)="onSubmit()" *ngIf="checks">
             <div class="row justify-content-center">
               <mat-form-field>
                 <input matInput class="form-control-sm" formControlName="txid" placeholder="Transection ID" required>
@@ -54,7 +57,7 @@
             </div>
             <br>
             <div class="row justify-content-center form-group">
-                <input [disabled]="!form.valid" type="submit" class="btn btn-primary"  value="Submit"/>
+                <input [disabled]="!form.valid || processing" type="submit" class="btn btn-primary"  value="Submit"/>
             </div>
           </form>
         </div>

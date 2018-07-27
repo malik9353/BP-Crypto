@@ -1,4 +1,5 @@
 <app-assets></app-assets>
+
 <div class="container-fluid grey lighten-2 pb-5" style="min-height:70vh;">
   <div class="row justify-content-md-center">
     <div class="list-group col-2">
@@ -13,20 +14,23 @@
           <h5 class="card-title">Withdrawal</h5>
         </div>
         <div class="card-body">
+          <div class="col-12 text-center">
+            <flash-messages></flash-messages>
+          </div>
           <div class="row">
             <mat-form-field class="col-4">
-              <mat-select (change)="deposits(values[$event.target.selectedIndex])" placeholder="Select Coin">
+              <mat-select (selectionChange)="withdraw($event.value)" placeholder="Select Coin">
                 <mat-option [value]="v" *ngFor="let v of values" >
                   <img src="../../../../assets/pic/{{v.symbol}}BTC.png" width="30px" height="30px"/><font class="ml-3 mr-3">{{v.name}}</font>{{v.symbol}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <div class="col-3 mt-4" >Available : <span style="color:#12bc12;">8</span></div>
-            <div class="col-2 mt-4" >In Order : <span style="color:#ff613a">4</span></div>
+            <div class="col-3 mt-4" >Available {{coin}} : <span style="color:#12bc12;">{{avail}}</span></div>
+            <!-- <div class="col-2 mt-4" >In Order : <span style="color:#ff613a">4</span></div> -->
           </div>
 
           <div class="mt-5">
-            <form [formGroup]="form">
+            <form [formGroup]="form" (submit)="onSubmit()">
               <div class="row justify-content-center">
                 <mat-form-field class="col-6">
                   <textarea matInput placeholder="Address" class="form-control-sm" formControlName="Address" autocomplete="off" required></textarea>
@@ -73,7 +77,7 @@
         <div class="card-footer grey lighten-1">
           Tips:
           <ul>
-            <li>The transfer of digital assets between the accounts of the DS Exchange platform is not supported, please ensure that your transfer address is non DS Exchange account address.</li>
+            <li>The transfer of digital assets between the accounts of the CoinBene platform is not supported, please ensure that your transfer address is non CoinBene account address.</li>
             <li>We will process your withdrawal in 30 minutes, it depends on the blockchain when the assets would finally transfered to your wallet.</li>
           </ul>
       </div>

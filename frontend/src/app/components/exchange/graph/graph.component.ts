@@ -148,7 +148,7 @@ export class GraphComponent implements OnInit
     setTimeout(() =>
     {
       $.getScript('../../../assets/js/XRP.js');
-    }, 4000);
+    }, 500);
   }
 
 }

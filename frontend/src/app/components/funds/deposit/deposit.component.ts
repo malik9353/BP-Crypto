@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
@@ -11,11 +12,18 @@ import { finalize } from 'rxjs/operators';
 })
 export class DepositComponent implements OnInit
 {
+  showSpinner:boolean = false;
   address="0x14d4e1df842919b3b433111df15b6d16b5b8b0ee";
-  addressTag="124sas51";
+  addressTag="";
+  coin="ADX";
+  tagshow=false;
   form: FormGroup;
   checks=false;
-  coin="ADABTC";
+  alpha={ symbol: "ADX", name: "AdEx" };
+  avail=0;
+  res;
+  ret;
+  processing=false;
 
   values = [
     { symbol: "ADX", name: "AdEx" },
@@ -156,7 +164,9 @@ export class DepositComponent implements OnInit
     { symbol: "ZRX", name: "0x" }
   ];
 
-  constructor(private formBuilder: FormBuilder, private authService:AuthService)
+  public selected = this.values[1].symbol;
+
+  constructor(private formBuilder: FormBuilder, private authService:AuthService, private _flashMessagesService: FlashMessagesService)
   {
     this.createForm();
   }
@@ -187,39 +197,42 @@ export class DepositComponent implements OnInit
 
   deposits(v:any)
   {
-    // this.address="";
-    // this.addressTag="";
-    // this.showSpinner=true;
-    // this.coin=v.symbol;
-    // this.authService.getAddress(this.coin).subscribe(data=>
-    // {
-    //   console.log(data);
-    //   this.address=data.result.address;
-    //   if(data.coin!=null)
-    //   {
-    //     this.avail=data.coin.amount[0];
-    //   }
-    //   if(data.result.addressTag!="")
-    //   {
-    //     this.tagshow=true;
-    //   }
-    //   else
-    //   {
-    //     this.tagshow=false;
-    //   }
-    //   this.addressTag=data.result.addressTag;
-    //   this.showSpinner=false;
-    // })
+    this.address="";
+    this.addressTag="";
+    this.showSpinner=true;
+    this.coin=v.symbol;
+    this.authService.getAddress(this.coin).subscribe(data=>
+    {
+      this.res=data;
+      this.address=this.res.result.address;
+      if(this.res.coin!=null)
+      {
+        this.avail=this.res.coin.amount[0];
+      }
+      if(this.res.result.addressTag!="")
+      {
+        this.tagshow=true;
+      }
+      else
+      {
+        this.tagshow=false;
+      }
+      this.addressTag=this.res.result.addressTag;
+      this.showSpinner=false;
+    })
   }
 
   onSubmit()
   {
+    this.processing=true;
     const Deposit = {
       txid: this.form.get('txid').value
     }
     this.authService.deposits(Deposit).subscribe(data=>
     {
-      console.log(data);
+      this.ret=data;
+      this._flashMessagesService.show(this.ret.message, { cssClass: 'alert-info', timeout: 2000 });
+      this.processing=false;
     });
   }
 

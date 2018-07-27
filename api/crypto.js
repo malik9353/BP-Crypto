@@ -55,7 +55,7 @@ binance.options(
     {
       if(error)
       {
-        res.status(500).send({error:error});
+        res.status(200).send({balance:balances,error:error});
       }
       else
       {
@@ -268,120 +268,156 @@ binance.options(
                             })
                           }
                         })
-
-
-
-                      }else{
+                      }
+                      else
+                      {
                         console.log("Order is not saved in DB");
                         res.status(200).send({message:response});
                       }
-
                     }
                   });
-
-                }else{
-                res.status(200).send({message:"You don't have enough couns to place order"});
                 }
-              }else{
-                res.status(200).send({message:"You don't have enough couns to place order"});
+                else
+                {
+                res.status(200).send({message:"Not enough coins !!!"});
+                }
+              }
+              else
+              {
+                res.status(200).send({message:"Not enough coins !!!"});
               }
             }
           })
-          //coin name must be combination of two coins like   BTC & BNB will be BTCBNB
-
-        }else if(params.type=="sell"){
+        }
+        else if(params.type=="sell")
+        {
           console.log("userID:",req.user._id);
-          coins.findOne({user_id:req.user._id,coinName:params.coinName}).exec(function(error,coinResult){
-            if(error){
+          coins.findOne({user_id:req.user._id,coinName:params.coinName}).exec(function(error,coinResult)
+          {
+            if(error)
+            {
               res.status(500).send({error:error});
-            }else{
-              if(coinResult){
+            }
+            else
+            {
+              if(coinResult)
+              {
                 console.log(params.coinName+"  :  "+coinResult);
-                if(parseFloat(coinResult.amount)<(parseFloat(params.quantity)-(0.5*parseFloat(params.quantity)))){
-                  res.status(200).send({message:"You don't have enough couns to place order",coin:coinResult});
-                }else{
-                  binance.sell(params.coinName, params.quantity, params.price, {type:'LIMIT'}, (error, response) => {
+                if(parseFloat(coinResult.amount)<(parseFloat(params.quantity)-(0.5*parseFloat(params.quantity))))
+                {
+                  res.status(200).send({message:"Not enough coins !!!",coin:coinResult});
+                }
+                else
+                {
+                  binance.sell(params.coinName, params.quantity, params.price, {type:'LIMIT'}, (error, response) =>
+                  {
                     console.log("Limit Sell response", response);
                     console.log("order id: " + response.orderId);
-                    if(error){
-                  //    console.log("error",JSON.parse(error.body));
-                    var c = JSON.parse(error.body);
-                      if(c.code == -1013){
+                    if(error)
+                    {
+                      var c = JSON.parse(error.body);
+                      if(c.code == -1013)
+                      {
                         res.status(200).send({message:"Please increase you order limit first."})
-                      }else{
-                      res.status(500).send({error:error});
                       }
-
-                    }else{
+                      else
+                      {
+                        res.status(500).send({error:error});
+                      }
+                    }
+                    else
+                    {
                       console.log("done");
-                      if(response.orderId !="" && response.orderId !=undefined){
+                      if(response.orderId !="" && response.orderId !=undefined)
+                      {
                         coinResult.amount = parseFloat(coinResult.amount) - parseFloat(params.quantity);
-                        coinResult.save(function(error,doit){
-                          if(error){
+                        coinResult.save(function(error,doit)
+                        {
+                          if(error)
+                          {
                             res.status(500).send({error:error});
-                          }else{
-
-                              if(response.status=="FILLED"){
-                                history.create({
-                                  user_id:req.user._id,
-                                  symbol: response.symbol,
-                                  orderId: response.orderId,
-                                  clientOrderId: response.clientOrderId,
-                                  transactTime: response.transactTime,
-                                  price: response.price,
-                                  origQty: response.origQty,
-                                  executedQty: response.executedQty,
-                                  status: response.status,
-                                  timeInForce: response.timeInForce,
-                                  type: response.type,
-                                  side: response.side
-                                }).then(function(final){
-                                  console.log("Order saved in History");
-                                  coins.findOne({user_id:req.user._id,coinName:"BTC"}).exec(function(error,doit){
-                                    if(error){
-                                      res.status(500).send({message:error});
-                                    }else{
-                                      if(doit){
-                                        doit.amount = parseFloat(doit.amount)+(parseFloat(final.origQty)*parseFloat(final.price));
-                                        doit.save(function(error,comp){
-                                          if(error){
-                                            res.status(500).send({message:error});
-                                          }else{
-                                            res.status(200).send({message:"Sell Order Placed"});
-                                          }
-                                        })
-                                      }else{
-                                        coins.create({
-                                          coinName:"BTC",
-                                          amount: parseFloat(final.origQty)*parseFloat(final.price),
-                                          user_id:req.user._id
-                                        }).then(function(finish){
+                          }
+                          else
+                          {
+                            if(response.status=="FILLED")
+                            {
+                              history.create(
+                              {
+                                user_id:req.user._id,
+                                symbol: response.symbol,
+                                orderId: response.orderId,
+                                clientOrderId: response.clientOrderId,
+                                transactTime: response.transactTime,
+                                price: response.price,
+                                origQty: response.origQty,
+                                executedQty: response.executedQty,
+                                status: response.status,
+                                timeInForce: response.timeInForce,
+                                type: response.type,
+                                side: response.side
+                              }).then(function(final)
+                              {
+                                console.log("Order saved in History");
+                                coins.findOne({user_id:req.user._id,coinName:"BTC"}).exec(function(error,doit)
+                                {
+                                  if(error)
+                                  {
+                                    res.status(500).send({message:error});
+                                  }
+                                  else
+                                  {
+                                    if(doit)
+                                    {
+                                      doit.amount = parseFloat(doit.amount)+(parseFloat(final.origQty)*parseFloat(final.price));
+                                      doit.save(function(error,comp)
+                                      {
+                                        if(error)
+                                        {
+                                          res.status(500).send({message:error});
+                                        }
+                                        else
+                                        {
                                           res.status(200).send({message:"Sell Order Placed"});
-                                        })
-                                      }
+                                        }
+                                      })
                                     }
-                                  })
-
+                                    else
+                                    {
+                                      coins.create(
+                                      {
+                                        coinName:"BTC",
+                                        amount: parseFloat(final.origQty)*parseFloat(final.price),
+                                        user_id:req.user._id
+                                      }).then(function(finish)
+                                      {
+                                        res.status(200).send({message:"Sell Order Placed"});
+                                      })
+                                    }
+                                  }
                                 })
-                              }else{
-                                limitOrder.create({
-                                  user_id:req.user._id,
-                                  symbol: response.symbol,
-                                  orderId: response.orderId,
-                                  clientOrderId: response.clientOrderId,
-                                  transactTime: response.transactTime,
-                                  price: response.price,
-                                  origQty: response.origQty,
-                                  executedQty: response.executedQty,
-                                  status: response.status,
-                                  timeInForce: response.timeInForce,
-                                  type: response.type,
-                                  side: response.side
-                                }).then(function(done){
-                                  res.status(200).send({message:"Sell Order Placed"});
-                                })
-                              }
-
+                              })
+                            }
+                            else
+                            {
+                              limitOrder.create(
+                              {
+                                user_id:req.user._id,
+                                symbol: response.symbol,
+                                orderId: response.orderId,
+                                clientOrderId: response.clientOrderId,
+                                transactTime: response.transactTime,
+                                price: response.price,
+                                origQty: response.origQty,
+                                executedQty: response.executedQty,
+                                status: response.status,
+                                timeInForce: response.timeInForce,
+                                type: response.type,
+                                side: response.side
+                              }).then(function(done)
+                              {
+                                res.status(200).send({message:"Sell Order Placed"});
+                              })
+                            }
                           }
                         })
 
@@ -393,14 +429,14 @@ binance.options(
                   });
                 }
               }else{
-                res.status(200).send({message:"You don't have that perticular coin for sale."});
+                res.status(200).send({message:"Don't have enough coins !!"});
               }
 
             }
           })
-
-
-        }else{
+        }
+        else
+        {
           res.status(403).send({message:"Irrelevent command found."})
         }
       }
@@ -790,11 +826,11 @@ binance.options(
                         })
                       })
                     }
-                                      }
+                  }
                 })
               }
-
             })
+            res.status(200).send({message:"Sorry...There is no such transection ID !!"});
           }
         });
       }
