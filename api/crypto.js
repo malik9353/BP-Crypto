@@ -577,28 +577,9 @@ binance.options(
           }
         });
       }
-
       exports.getDepositAddress = function(req,res)
-      {
-        // var params = req.body;
-        binance.depositAddress(req.params.coinName, (error, response) =>
-        {
-          if(error)
           {
-            res.status(500).send({error:error});
-          }
-          else
-          {
-            var coiName = req.params.coinName;
-            if(coiName == "BTC")
-            {
-
-            }
-            else
-            {
-              coiName = coiName+"BTC";
-            }
-            coins.findOne({user_id:req.user._id,coinName:coiName}).exec(function(error,result)
+            binance.depositAddress(req.params.coinName, (error, response) =>
             {
               if(error)
               {
@@ -606,15 +587,41 @@ binance.options(
               }
               else
               {
-                //console.log("Result",result);
-                res.status(200).send({result:response,coin:result});
+                var coiName = req.params.coinName;
+                if(coiName == "BTC")
+                {
+
+                }
+                else
+                {
+                  coiName = coiName+"BTC";
+                }
+                coins.findOne({user_id:req.user._id,coinName:coiName}).exec(function(error,result)
+                {
+                  if(error)
+                  {
+                    res.status(500).send({error:error});
+                  }
+                  else
+                  {
+                    coins.findOne({user_id:req.user._id,coinName:"BTC"}).exec(function(error,btc)
+                    {
+                      if(error)
+                      {
+                        res.status(500).send({error:error});
+                      }
+                      else
+                      {
+                        res.status(200).send({result:response,coin:result,btc:btc});
+                      }
+                    })
+                  }
+                })
+
               }
-            })
-
+            });
           }
-        });
-      }
-
+          
       exports.getAllDepositHistory = function(req,res)
       {
         binance.depositHistory((error, response) =>
@@ -811,7 +818,7 @@ binance.options(
                             }else{
                               coins.create({
                                 coinName:doneit.coinName,
-                                user_id:req.userr._id,
+                                user_id:req.user._id,
                                 amount:doneit.amount
                               }).then(function(fin){
                                 if(idx===history.length-1){
@@ -956,6 +963,10 @@ binance.options(
                   btc = btc + parseFloat(i.amount[0]);
                   console.log(btc);
                   i.amount[1] = btc;
+                  if(idx==x.length-1)
+                  {
+                      res.status(200).send({coins:result,btcValue:btc});
+                  }
                 }
                 else
                 {
@@ -968,17 +979,8 @@ binance.options(
                     if(idx==x.length-1){
                         res.status(200).send({coins:result,btcValue:btc});
                     }
-                    // if (idx === x.length - 1)
-                    // {
-                    //   res.status(200).send({coins:result,btcValue:btc});
-                    // }
                   });
                 }
-                // if (idx === x.length - 1)
-                // {
-                //   res.status(200).send({coins:result,btcValue:btc});
-                // }
-
               })
             }
             else
