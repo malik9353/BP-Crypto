@@ -41,7 +41,7 @@ if (process.env.NODE_ENV !== 'production')
   process.env.jwtsecret = process.env.jwtsecret;
 }
 
-mongoose.connect('mongodb://admin1:admin1@ds143511.mlab.com:43511/coinbene', { useMongoClient: true }); // database conneciton to azure pro database
+mongoose.connect('mongodb://admin1:admin1@ds231941.mlab.com:31941/ds-exchange', { useMongoClient: true }); // database conneciton to azure pro database
 mongoose.connection.once('connected', () => console.log('Connected to database'));
 
 app.use(morgan('dev'));
