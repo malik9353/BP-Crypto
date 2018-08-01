@@ -25,6 +25,8 @@ export class NavbarComponent implements OnInit
   usernameMessage;
   registerRes;
   loginRes;
+  admin=localStorage.getItem('isAdmin');
+  show:boolean = false;
 
   constructor(private formBuilder: FormBuilder, public authService:AuthService, private router: Router,private flashMessagesService: FlashMessagesService)
   {
@@ -197,5 +199,11 @@ export class NavbarComponent implements OnInit
     this.router.navigate(['/']);
   }
 
-  ngOnInit() {}
+  ngOnInit()
+  {
+    if(this.admin=="true")
+    {
+      this.show=true;
+    }
+  }
 }
