@@ -17,24 +17,24 @@
       </thead>
       <tr>
         <td>
-          <strong style="font-size:20px;"> {{btc+open}}  </strong> BTC
+          <strong style="font-size:20px;"> {{(btc+open)| number:'1.1-8'}}  </strong> BTC
         </td>
         <td>
-          <strong style="font-size:20px;color:#12bc12;"> {{btc}} </strong> BTC
+          <strong style="font-size:20px;color:#12bc12;"> {{btc | number:'1.1-8'}} </strong> BTC
         </td>
         <td>
-          <strong style="font-size:20px;color:#ff613a;"> {{open}} </strong> BTC
+          <strong style="font-size:20px;color:#ff613a;"> {{open | number:'1.1-8'}} </strong> BTC
         </td>
       </tr>
       <tr>
         <td>
-          ~<strong style="font-size:18px;"> {{(btc+open)*bitcoin}} </strong> $
+          ~<strong style="font-size:18px;"> {{((btc+open)*bitcoin) | number}} </strong> $
         </td>
         <td>
-          ~<strong style="font-size:18px;"> {{btc*bitcoin}} </strong> $
+          ~<strong style="font-size:18px;"> {{(btc*bitcoin) | number}} </strong> $
         </td>
         <td>
-          ~<strong style="font-size:18px;"> {{open*bitcoin}} </strong> $
+          ~<strong style="font-size:18px;"> {{(open*bitcoin) | number}} </strong> $
         </td>
       </tr>
     </table>

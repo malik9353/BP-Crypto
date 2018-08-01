@@ -43,7 +43,7 @@
                 </mat-error>
               </mat-form-field>
               <div>
-                <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Available&nbsp; : </font><font style="font-size:13px;color:#e3e7ef;">{{bitcoin}}</font> <br/>
+                <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Available&nbsp; : </font><font style="font-size:13px;color:#e3e7ef;">{{bitcoin | number:'1.1-8'}}</font> <br/>
                 <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Amount&nbsp;&nbsp; :&nbsp;&nbsp;</font><font style="font-size:13px;color:#e3e7ef;">{{(+a1) * 10}}</font>
               </div>
               <div class="mt-2">
@@ -72,11 +72,11 @@
                 </mat-error>
               </mat-form-field>
               <div>
-                <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Available&nbsp; : </font><font style="font-size:13px;color:#e3e7ef;">{{altcoin}}</font> <br/>
+                <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Available&nbsp; : </font><font style="font-size:13px;color:#e3e7ef;">{{altcoin | number}}</font> <br/>
                 <font class="ml-3" style="font-size:13px;color:#c4c9d1;">Amount&nbsp;&nbsp; :&nbsp;&nbsp;</font><font style="font-size:13px;color:#e3e7ef;">{{a2*p2}}</font>
               </div>
               <div class="mt-2">
-                <button  [disabled]="!sell.valid || processing" type="submit" class="col-10 btn btn-danger waves-light" mdbWavesEffect>Buy {{coinz}}</button>
+                <button  [disabled]="!sell.valid || processing" type="submit" class="col-10 btn btn-danger waves-light" mdbWavesEffect>SEll {{coinz}}</button>
               </div>
             </form>
           </div>
@@ -88,15 +88,15 @@
             <thead>
               <tr>
                 <th scope="col">Type</th>
-                <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let ask of bidsasks">
                 <td scope="row" style="font-size:10px;">ASk</td>
+                <td style="font-size:10px;">{{ask.askQty | number}}</td>
                 <td class="red-text"  style="font-size:10px;">{{ask.askPrice}}</td>
-                <td style="font-size:10px;">{{ask.askQty | slice:0:6}}</td>
               </tr>
             </tbody>
           </table>
@@ -104,15 +104,15 @@
             <thead>
               <tr>
                 <th scope="col">Type</th>
-                <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
               </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let bid of bidsasks">
                   <td scope="row" style="font-size:10px;">BID</td>
+                  <td style="font-size:10px;">{{bid.bidQty | number}}</td>
                   <td class="green-text" style="font-size:10px;">{{bid.bidPrice}}</td>
-                  <td style="font-size:10px;">{{bid.bidQty | slice:0:6}}</td>
                 </tr>
             </tbody>
           </table>
@@ -126,14 +126,14 @@
         <thead>
           <tr>
             <th scope="col">Type</th>
-            <th scope="col">Price</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let mark of market">
             <td scope="row"><span *ngIf="mark.maker" style="color:red;">Sell</span><span *ngIf="!mark.maker" style="color:green;">Buy</span></td>
-            <td>{{mark.quantity}}</td>
+            <td>{{mark.quantity | number}}</td>
             <td>{{mark.price}}</td>
           </tr>
         </tbody>
@@ -193,8 +193,8 @@
                     <td scope="row">{{trade.status.symbol}}</td>
                     <td>{{trade.status.side}}</td>
                     <td>{{trade.status.price}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
-                    <td>{{trade.status.origQty}} &nbsp;<em style="color:#919499;font-size:12px;">{{trade.status.symbol}}</em></td>
-                    <td>{{trade.status.origQty*trade.status.price}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
+                    <td>{{trade.status.origQty | number}} &nbsp;<em style="color:#919499;font-size:12px;">{{trade.status.symbol}}</em></td>
+                    <td>{{(trade.status.origQty*trade.status.price) | number:'1.1-8'}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
                   </tr>
                   <tr>
                     <td colspan="6" class="text-center" *ngIf="filled?.length == 0">
