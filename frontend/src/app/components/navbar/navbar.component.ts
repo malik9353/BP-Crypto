@@ -144,8 +144,8 @@ export class NavbarComponent implements OnInit
         // this.message = this.registerRes.message;
         setTimeout(() =>
         {
-          this.router.navigate(['/']);
-        }, 2000);
+          location.reload();
+        }, 1000);
       }
     });
   }
