@@ -15,15 +15,16 @@
       </div>
                                                                   <!-- Below Graph -->
       <div class="row col-12 mdb-color darken-3 mt-2">
+        <flash-messages></flash-messages>
                                                                 <!-- Trading Section -->
         <div class="row col-10" style="height:54vh">
                                                                 <!-- Buy Section -->
-          <div class="container-fluid row show-hide-message mdb-color darken-3">
-            <div class="col-12 text-center">
-              <flash-messages></flash-messages>
-            </div>
-          </div>
           <div class="row col-6 white-text">
+            <!-- <div class="container-fluid row show-hide-message">
+              <div class="col-12 text-center"> -->
+
+              <!-- </div>
+            </div> -->
             <h5 class="mt-4 green-text"> <strong>Buy {{coinz}}</strong> </h5>
             <form [formGroup]="buy" class="ml-2" (submit)="onSubmitBuy()">
               <mat-form-field class="col-10">
@@ -59,7 +60,7 @@
                 <input matInput type="number" formControlName="price" autocomplete="off" value="{{prize}}" [(ngModel)]="p2" >
                 <mat-placeholder class="placeholder">Price</mat-placeholder>
                 <mat-icon matSuffix>attach_money</mat-icon>
-                <mat-error *ngIf="sell.controls.price.errors?.required && sell.controls.price.dirty">
+                <mat-error *ngIf="sell.controls.price.errors?.required">
                     Price is required !!!
                 </mat-error>
               </mat-form-field>
@@ -67,7 +68,7 @@
                 <input matInput type="number" formControlName="quantity" autocomplete="off" [(ngModel)]="a2" >
                 <mat-placeholder class="placeholder">Quantity</mat-placeholder>
                 <mat-icon matSuffix>shopping_cart</mat-icon>
-                <mat-error *ngIf="sell.controls.quantity.errors?.required && sell.controls.quantity.dirty">
+                <mat-error *ngIf="sell.controls.quantity.errors?.required">
                     Quantity is required !!!
                 </mat-error>
               </mat-form-field>
