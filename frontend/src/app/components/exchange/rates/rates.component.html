@@ -1,228 +1,861 @@
-<table class="table col-sm-2 white-text mdb-color darken-2">
-  <thead class="mdb-color darken-3">
-    <tr>
-        <th>
-          Coin
-        </th>
-        <th>
-          Price
-        </th>
-    </tr>
-  </thead>
-    <tr id="coin"  (click)="coin('ADA')">
-      <td style="width:100px;">
-        ADA
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-          {{rates.ADABTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('ADX')">
-      <td style="width:100px;">
-        ADX
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.ADXBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('AION')">
-      <td style="width:100px;">
-        AION
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.AIONBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('AE')">
-      <td style="width:100px;">
-        AE
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.AEBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('BNB')">
-      <td style="width:100px;">
-        BNB
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.BNBBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('BQX')">
-      <td style="width:100px;">
-        BQX
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.BQXBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('BCC')">
-      <td style="width:100px;">
-        BCC
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.BCCBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('XRP')">
-      <td style="width:100px;">
-        XRP
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.XRPBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('ICN')">
-      <td style="width:100px;">
-        ICN
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.ICNBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('NEO')">
-      <td style="width:100px;">
-        NEO
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.NEOBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('LINK')">
-      <td style="width:100px;">
-        LINK
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.LINKBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('SALT')">
-      <td style="width:100px;">
-        SALT
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.SALTBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('IOTA')">
-      <td style="width:100px;">
-        IOTA
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.IOTABTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('ETC')">
-      <td style="width:100px;">
-        ETC
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.ETCBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('KNC')">
-      <td style="width:100px;">
-        KNC
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.KNCBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('WTC')">
-      <td style="width:100px;">
-        WTC
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.WTCBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('SNT')">
-      <td style="width:100px;">
-        SNT
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.SNTBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('GAS')">
-      <td style="width:100px;">
-        GAS
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.GASBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('SNM')">
-      <td style="width:100px;">
-        SNM
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.SNMBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('BQX')">
-      <td style="width:100px;">
-        BQX
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.BQXBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('QTUM')">
-      <td style="width:100px;">
-        QTUM
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.QTUMBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('LTC')">
-      <td style="width:100px;">
-        LTC
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.LTCBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('ETH')">
-      <td style="width:100px;">
-        ETH
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.ETHBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('STRAT')">
-      <td style="width:100px;">
-        STRAT
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.STRATBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('BCC')">
-      <td style="width:100px;">
-        BCC
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.BCCBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('OMG')">
-      <td style="width:100px;">
-        OMG
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.OMGBTC}}
-      </td>
-    </tr>
-    <tr id="coin"  (click)="coin('MCO')">
-      <td style="width:100px;">
-        MCO
-      </td>
-      <td style="width:100px;font-size:15px;" *ngIf="show">
-        {{rates.MCOBTC}}
-      </td>
-    </tr>
-</table>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#home">USDT</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#menu1">ETH</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#menu2">BTC</a>
+  </li>
+</ul>
+<span class="form-inline search-bar">
+  <input class="form-control sr-md-4" type="search" placeholder="Search" aria-label="Search">
+</span>
+<div class="tab-content left-side-tab">
+  <div id="home" class="container tab-pane active">
+    <br>
+    <ul>
+      <li  (click)="coin('ADA')">
+        <a href="javascript:void(0);">
+            <span>
+            Cardona ADA
+          </span>
+          <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.ADABTC}}
+</font>           </span>
+          </a>
+        </li>
+      <li  (click)="coin('ADX')">
+        <a href="javascript:void(0);">
+            <span>
+            AdEx ADX
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.ADXBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('AION')">
+        <a href="javascript:void(0);">
+            <span>
+            Aion AION
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.AIONBTC}}</font>
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('AE')">
+        <a href="javascript:void(0);">
+            <span>
+            Aeternity AE
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.AEBTC}}
+  </font>         </span>
+        </a>
+        </li>
+      <li  (click)="coin('BNB')">
+        <a href="javascript:void(0);">
+            <span>
+            Binance BNB
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.BNBBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('BQX')">
+        <a href="javascript:void(0);">
+            <span>
+            Ethos BQX
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.BQXBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('BCC')">
+        <a href="javascript:void(0);">
+            <span>
+            Bit Connect BCC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.BCCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('XRP')">
+        <a href="javascript:void(0);">
+            <span>
+            Ripple XRP
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.XRPBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('ICN')">
+        <a href="javascript:void(0);">
+            <span>
+            Iconomi ICN
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.ICNBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('NEO')">
+        <a href="javascript:void(0);">
+            <span>
+            Neo NEO
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.NEOBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('LINK')">
+        <a href="javascript:void(0);">
+            <span>
+            ChainLink LINK
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.LINKBTC}}</font>
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('SALT')">
+        <a href="javascript:void(0);">
+            <span>
+            Salt Lending SALT
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.SALTBTC}}</font>
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('IOTA')">
+        <a href="javascript:void(0);">
+            <span>
+            Iota IOTA
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.IOTABTC}}</font>
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('ETC')">
+        <a href="javascript:void(0);">
+            <span>
+            Ethereum Classic ETC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.ETCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('KNC')">
+        <a href="javascript:void(0);">
+            <span>
+            Khyber Network KNC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.KNCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('WTC')">
+        <a href="javascript:void(0);">
+            <span>
+            Walton Chain WTC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.WTCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('SNT')">
+        <a href="javascript:void(0);">
+            <span>
+            Status SNT
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.SNTBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('GAS')">
+        <a href="javascript:void(0);">
+            <span>
+            Gas GAS
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.GASBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('SNM')">
+        <a href="javascript:void(0);">
+            <span>
+            SONM SNM
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.SNMBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('BQX')">
+        <a href="javascript:void(0);">
+            <span>
+            Ethos BQX
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.BQXBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('QTUM')">
+        <a href="javascript:void(0);">
+            <span>
+            Qtum QTUM
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.QTUMBTC}}</font>
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('LTC')">
+        <a href="javascript:void(0);">
+            <span>
+            Litecoin LTC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.LTCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('ETH')">
+        <a href="javascript:void(0);">
+            <span>
+            Ethereum ETH
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.ETHBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('STRAT')">
+        <a href="javascript:void(0);">
+            <span>
+            Stratis STRAT
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.STRATBTC}</font> }
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('BCC')">
+        <a href="javascript:void(0);">
+            <span>
+            BitConnect BCC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.BCCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('OMG')">
+        <a href="javascript:void(0);">
+            <span>
+            OmiseGO OMG
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.OMGBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('MCO')">
+        <a href="javascript:void(0);">
+            <span>
+            Monaco MCO
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.MCOBTC}}
+</font>           </span>
+        </a>
+        </li>
+    </ul>
+  </div>
+  <div id="menu1" class="container tab-pane fade">
+    <br>
+    <ul>
+      <li  (click)="coin('IOTA')">
+        <a href="javascript:void(0);">
+            <span>
+            Iota IOTA
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.IOTABTC}}</font>
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('ETC')">
+        <a href="javascript:void(0);">
+            <span>
+            Ethereum Classic ETC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.ETCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('KNC')">
+        <a href="javascript:void(0);">
+            <span>
+            Khyber Network KNC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.KNCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('WTC')">
+        <a href="javascript:void(0);">
+            <span>
+            Walton Chain WTC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.WTCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('SNT')">
+        <a href="javascript:void(0);">
+            <span>
+            Status SNT
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.SNTBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('GAS')">
+        <a href="javascript:void(0);">
+            <span>
+            Gas GAS
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.GASBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('SNM')">
+        <a href="javascript:void(0);">
+            <span>
+            SONM SNM
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.SNMBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('BQX')">
+        <a href="javascript:void(0);">
+            <span>
+            Ethos BQX
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.BQXBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('QTUM')">
+        <a href="javascript:void(0);">
+            <span>
+            Qtum QTUM
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.QTUMBTC}}</font>
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('LTC')">
+        <a href="javascript:void(0);">
+            <span>
+            Litecoin LTC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.LTCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('ETH')">
+        <a href="javascript:void(0);">
+            <span>
+            Ethereum ETH
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.ETHBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('STRAT')">
+        <a href="javascript:void(0);">
+            <span>
+            Stratis STRAT
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.STRATBTC}</font> }
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('BCC')">
+        <a href="javascript:void(0);">
+            <span>
+            BitConnect BCC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.BCCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('OMG')">
+        <a href="javascript:void(0);">
+            <span>
+            OmiseGO OMG
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.OMGBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('MCO')">
+        <a href="javascript:void(0);">
+            <span>
+            Monaco MCO
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.MCOBTC}}
+</font>           </span>
+        </a>
+        </li>
+        <li  (click)="coin('AION')">
+          <a href="javascript:void(0);">
+              <span>
+              Aion AION
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.AIONBTC}}</font>
+            </span>
+          </a>
+          </li>
+        <li  (click)="coin('AE')">
+          <a href="javascript:void(0);">
+              <span>
+              Aeternity AE
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.AEBTC}}
+  </font>           </span>
+          </a>
+          </li>
+        <li  (click)="coin('BNB')">
+          <a href="javascript:void(0);">
+              <span>
+              Binance BNB
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.BNBBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('BQX')">
+          <a href="javascript:void(0);">
+              <span>
+              Ethos BQX
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.BQXBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('BCC')">
+          <a href="javascript:void(0);">
+              <span>
+              Bit Connect BCC
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.BCCBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('XRP')">
+          <a href="javascript:void(0);">
+              <span>
+              Ripple XRP
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.XRPBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('ICN')">
+          <a href="javascript:void(0);">
+              <span>
+              Iconomi ICN
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.ICNBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('NEO')">
+          <a href="javascript:void(0);">
+              <span>
+              Neo NEO
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.NEOBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('LINK')">
+          <a href="javascript:void(0);">
+              <span>
+              ChainLink LINK
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.LINKBTC}}</font>
+            </span>
+          </a>
+          </li>
+        <li  (click)="coin('SALT')">
+          <a href="javascript:void(0);">
+              <span>
+              Salt Lending SALT
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.SALTBTC}}</font>
+            </span>
+          </a>
+          </li>
+    </ul>
+  </div>
+  <div id="menu2" class="container tab-pane fade">
+    <br>
+    <ul>
+      <li  (click)="coin('LTC')">
+        <a href="javascript:void(0);">
+            <span>
+            Litecoin LTC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.LTCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('ETH')">
+        <a href="javascript:void(0);">
+            <span>
+            Ethereum ETH
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.ETHBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('STRAT')">
+        <a href="javascript:void(0);">
+            <span>
+            Stratis STRAT
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.STRATBTC}}</font>
+          </span>
+        </a>
+        </li>
+      <li  (click)="coin('BCC')">
+        <a href="javascript:void(0);">
+            <span>
+            BitConnect BCC
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.BCCBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('OMG')">
+        <a href="javascript:void(0);">
+            <span>
+            OmiseGO OMG
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.OMGBTC}}
+</font>           </span>
+        </a>
+        </li>
+      <li  (click)="coin('MCO')">
+        <a href="javascript:void(0);">
+            <span>
+            Monaco MCO
+          </span>
+          <span class="float-right" *ngIf="show">
+            <font style="color:#7c88a0">{{rates.MCOBTC}}
+</font>           </span>
+        </a>
+        </li>
+        <li  (click)="coin('AION')">
+          <a href="javascript:void(0);">
+              <span>
+              Aion AION
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.AIONBTC}}</font>
+            </span>
+          </a>
+          </li>
+        <li  (click)="coin('AE')">
+          <a href="javascript:void(0);">
+              <span>
+              Aeternity AE
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.AEBTC}}
+  </font>           </span>
+          </a>
+          </li>
+        <li  (click)="coin('BNB')">
+          <a href="javascript:void(0);">
+              <span>
+              Binance BNB
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.BNBBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('BQX')">
+          <a href="javascript:void(0);">
+              <span>
+              Ethos BQX
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.BQXBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('BCC')">
+          <a href="javascript:void(0);">
+              <span>
+              Bit Connect BCC
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.BCCBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('XRP')">
+          <a href="javascript:void(0);">
+              <span>
+              Ripple XRP
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.XRPBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('ICN')">
+          <a href="javascript:void(0);">
+              <span>
+              Iconomi ICN
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.ICNBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('NEO')">
+          <a href="javascript:void(0);">
+              <span>
+              Neo NEO
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.NEOBTC}}
+</font>             </span>
+          </a>
+          </li>
+        <li  (click)="coin('LINK')">
+          <a href="javascript:void(0);">
+              <span>
+              ChainLink LINK
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.LINKBTC}}</font>
+            </span>
+          </a>
+          </li>
+        <li  (click)="coin('SALT')">
+          <a href="javascript:void(0);">
+              <span>
+              Salt Lending SALT
+            </span>
+            <span class="float-right" *ngIf="show">
+              <font style="color:#7c88a0">{{rates.SALTBTC}}</font>
+            </span>
+          </a>
+          </li>
+          <li  (click)="coin('ADA')">
+            <a href="javascript:void(0);">
+                <span>
+                Cardona ADA
+              </span>
+              <span class="float-right" *ngIf="show">
+                  <font style="color:#7c88a0">{{rates.ADABTC}}
+</font>               </span>
+              </a>
+            </li>
+          <li  (click)="coin('ADX')">
+            <a href="javascript:void(0);">
+                <span>
+                AdEx ADX
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.ADXBTC}}
+</font>               </span>
+            </a>
+            </li>
+          <li  (click)="coin('AION')">
+            <a href="javascript:void(0);">
+                <span>
+                Aion AION
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.AIONBTC}}</font>
+              </span>
+            </a>
+            </li>
+          <li  (click)="coin('AE')">
+            <a href="javascript:void(0);">
+                <span>
+                Aeternity AE
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.AEBTC}}
+  </font>             </span>
+            </a>
+            </li>
+          <li  (click)="coin('BNB')">
+            <a href="javascript:void(0);">
+                <span>
+                Binance BNB
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.BNBBTC}}
+</font>               </span>
+            </a>
+            </li>
+          <li  (click)="coin('BQX')">
+            <a href="javascript:void(0);">
+                <span>
+                Ethos BQX
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.BQXBTC}}
+</font>               </span>
+            </a>
+            </li>
+          <li  (click)="coin('BCC')">
+            <a href="javascript:void(0);">
+                <span>
+                Bit Connect BCC
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.BCCBTC}}
+</font>               </span>
+            </a>
+            </li>
+          <li  (click)="coin('XRP')">
+            <a href="javascript:void(0);">
+                <span>
+                Ripple XRP
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.XRPBTC}}
+</font>               </span>
+            </a>
+            </li>
+          <li  (click)="coin('ICN')">
+            <a href="javascript:void(0);">
+                <span>
+                Iconomi ICN
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.ICNBTC}}
+</font>               </span>
+            </a>
+            </li>
+          <li  (click)="coin('NEO')">
+            <a href="javascript:void(0);">
+                <span>
+                Neo NEO
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.NEOBTC}}
+</font>               </span>
+            </a>
+            </li>
+          <li  (click)="coin('LINK')">
+            <a href="javascript:void(0);">
+                <span>
+                ChainLink LINK
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.LINKBTC}}</font>
+              </span>
+            </a>
+            </li>
+          <li  (click)="coin('SALT')">
+            <a href="javascript:void(0);">
+                <span>
+                Salt Lending SALT
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.SALTBTC}}</font>
+              </span>
+            </a>
+            </li>
+          <li  (click)="coin('IOTA')">
+            <a href="javascript:void(0);">
+                <span>
+                Iota IOTA
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.IOTABTC}}</font>
+              </span>
+            </a>
+            </li>
+          <li  (click)="coin('ETC')">
+            <a href="javascript:void(0);">
+                <span>
+                Ethereum Classic ETC
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.ETCBTC}}
+</font>               </span>
+            </a>
+            </li>
+          <li  (click)="coin('KNC')">
+            <a href="javascript:void(0);">
+                <span>
+                Khyber Network KNC
+              </span>
+              <span class="float-right" *ngIf="show">
+                <font style="color:#7c88a0">{{rates.KNCBTC}}
+</font>               </span>
+            </a>
+            </li>
+    </ul>
+  </div>
+</div>
