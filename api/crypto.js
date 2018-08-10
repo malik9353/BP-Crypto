@@ -130,7 +130,6 @@ binance.options(
       exports.placeLimitOrder = function(req,res)
       {
         var params = req.body;
-        console.log(params);
         if(params.type=="buy"){
           coins.findOne({user_id:req.user._id,coinName:"BTC"}).exec(function(error,init){
             if(error){
@@ -139,18 +138,14 @@ binance.options(
               if(init){
                 if(parseFloat(init.amount)>((parseFloat(params.quantity)*parseFloat(params.price))+(0.5*parseFloat(init.amount)))){
                   binance.buy(params.coinName, params.quantity, params.price, {type:'LIMIT'}, (error, response) => {
-                    console.log("Limit Buy response", response);
-                    console.log("order id: " + response.orderId);
                     if(error){
-                      console.log("error",error);
                       var c = JSON.parse(error.body);
                         if(c.code == -1013){
-                          res.status(200).send({message:"Please increase you order limit first."});
+                          res.status(200).send({success: "false", message:"Increase you order size !!"});
                       }else{
                       res.status(500).send({error:error});
                       }
                     }else{
-                      console.log("done");
                       if(response.orderId !="" && response.orderId !=undefined){
                         var totalAmount = (parseFloat(response.origQty)*parseFloat(response.price))+(0.5*(parseFloat(response.origQty)*parseFloat(response.price)));
                         coins.findOne({user_id:req.user._id,coinName:"BTC"}).exec(function(error,btcResult){
@@ -189,8 +184,7 @@ binance.options(
                                                 type: response.type,
                                                 side: response.side
                                               }).then(function(final){
-                                                console.log("Order saved in History");
-                                                res.status(200).send({message:"Buy Order Placed"});
+                                                res.status(200).send({success: "true", message:"Order Placed Successfully !!"});
                                               })
 
                                           }
@@ -211,12 +205,9 @@ binance.options(
                                             type: response.type,
                                             side: response.side
                                           }).then(function(done){
-                                            console.log("Order saved in DB");
-                                            res.status(200).send({message:"Buy Order Placed"});
+                                            res.status(200).send({success: "true", message:"Order Placed Successfully !!"});
                                           })
-
                                       }
-
                                     }else{
                                       coins.create({
                                         coinName:params.coinName,
@@ -238,8 +229,7 @@ binance.options(
                                             type: response.type,
                                             side: response.side
                                           }).then(function(final){
-                                            console.log("Order saved in History");
-                                            res.status(200).send({message:"Buy Order Placed"});
+                                            res.status(200).send({success: "true", message:"Order Placed Successfully !!"});
                                           })
                                         }else{
                                           limitOrder.create({
@@ -256,8 +246,7 @@ binance.options(
                                             type: response.type,
                                             side: response.side
                                           }).then(function(done){
-                                            console.log("Order saved in DB");
-                                            res.status(200).send({message:"Buy Order Placed"});
+                                            res.status(200).send({success: "true", message:"Order Placed Successfully !!"});
                                           })
                                         }
                                       })
@@ -271,27 +260,25 @@ binance.options(
                       }
                       else
                       {
-                        console.log("Order is not saved in DB");
-                        res.status(200).send({message:response});
+                        res.status(200).send({success: "false", message:response});
                       }
                     }
                   });
                 }
                 else
                 {
-                res.status(200).send({message:"Not enough coins !!!"});
+                res.status(200).send({success: "false", message:"Not enough coins !!!"});
                 }
               }
               else
               {
-                res.status(200).send({message:"Not enough coins !!!"});
+                res.status(200).send({success: "false", message:"Not enough coins !!!"});
               }
             }
           })
         }
         else if(params.type=="sell")
         {
-          console.log("userID:",req.user._id);
           coins.findOne({user_id:req.user._id,coinName:params.coinName}).exec(function(error,coinResult)
           {
             if(error)
@@ -302,23 +289,20 @@ binance.options(
             {
               if(coinResult)
               {
-                console.log(params.coinName+"  :  "+coinResult);
                 if(parseFloat(coinResult.amount)<(parseFloat(params.quantity)-(0.5*parseFloat(params.quantity))))
                 {
-                  res.status(200).send({message:"Not enough coins !!!",coin:coinResult});
+                  res.status(200).send({success: "false", message:"Not enough coins !!!",coin:coinResult});
                 }
                 else
                 {
                   binance.sell(params.coinName, params.quantity, params.price, {type:'LIMIT'}, (error, response) =>
                   {
-                    console.log("Limit Sell response", response);
-                    console.log("order id: " + response.orderId);
                     if(error)
                     {
                       var c = JSON.parse(error.body);
                       if(c.code == -1013)
                       {
-                        res.status(200).send({message:"Please increase you order limit first."})
+                        res.status(200).send({success: "false", message:"Increase you order size !!"})
                       }
                       else
                       {
@@ -327,7 +311,6 @@ binance.options(
                     }
                     else
                     {
-                      console.log("done");
                       if(response.orderId !="" && response.orderId !=undefined)
                       {
                         coinResult.amount = parseFloat(coinResult.amount) - parseFloat(params.quantity);
@@ -357,7 +340,6 @@ binance.options(
                                 side: response.side
                               }).then(function(final)
                               {
-                                console.log("Order saved in History");
                                 coins.findOne({user_id:req.user._id,coinName:"BTC"}).exec(function(error,doit)
                                 {
                                   if(error)
@@ -377,7 +359,7 @@ binance.options(
                                         }
                                         else
                                         {
-                                          res.status(200).send({message:"Sell Order Placed"});
+                                          res.status(200).send({success: "true", message:"Order Placed Successfully !!"});
                                         }
                                       })
                                     }
@@ -390,7 +372,7 @@ binance.options(
                                         user_id:req.user._id
                                       }).then(function(finish)
                                       {
-                                        res.status(200).send({message:"Sell Order Placed"});
+                                        res.status(200).send({success: "true", message:"Order Placed Successfully !!"});
                                       })
                                     }
                                   }
@@ -415,21 +397,20 @@ binance.options(
                                 side: response.side
                               }).then(function(done)
                               {
-                                res.status(200).send({message:"Sell Order Placed"});
+                                res.status(200).send({success: "true", message:"Order Placed Successfully !!"});
                               })
                             }
                           }
                         })
 
                       }else{
-                        console.log("Order is not saved in DB");
-                        res.status(200).send({message:"Sell Order Placed"});
+                        res.status(200).send({success: "true", message:"Order Placed Successfully !!"});
                       }
                     }
                   });
                 }
               }else{
-                res.status(200).send({message:"Don't have enough coins !!"});
+                res.status(200).send({success: "false", message:"Don't have enough coins !!"});
               }
 
             }
@@ -437,7 +418,7 @@ binance.options(
         }
         else
         {
-          res.status(403).send({message:"Irrelevent command found."})
+          res.status(200).send({success: "true", message:"Irrelevent command found."})
         }
       }
 
@@ -454,7 +435,7 @@ binance.options(
             }
             else
             {
-              res.status(200).send({result:result});
+              res.status(200).send({success: "true", result:result});
             }
           });
         }
@@ -464,7 +445,6 @@ binance.options(
           {
             if(error)
             {
-              console.log("error",error);
               res.status(500).send({error:error});
             }
             else
@@ -621,7 +601,7 @@ binance.options(
               }
             });
           }
-          
+
       exports.getAllDepositHistory = function(req,res)
       {
         binance.depositHistory((error, response) =>

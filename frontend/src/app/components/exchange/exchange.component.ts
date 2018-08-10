@@ -1,9 +1,9 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocketService } from '../../services/socket.service';
-import { NgFlashMessageService } from 'ng-flash-messages';
 import { AuthService } from '../../services/auth.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { TosterService } from '../../services/toster.service';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
@@ -59,7 +59,7 @@ export class ExchangeComponent implements OnInit
   buy: FormGroup;
   processing = false;
 
-  constructor(private formBuilder: FormBuilder, private dashboardComponent:DashboardComponent, private authService:AuthService, private ngFlashMessageService: NgFlashMessageService, private socketService: SocketService)
+  constructor(private formBuilder: FormBuilder, private dashboardComponent:DashboardComponent, public toster:TosterService, private authService:AuthService, private socketService: SocketService)
   {
     this.createForm();
   }
@@ -144,10 +144,16 @@ export class ExchangeComponent implements OnInit
     }
     this.authService.buy_sell(buy).subscribe(data=>
     {
-      console.log(data);
       this.buy_sell_res=data;
-      this.ngFlashMessageService.showFlashMessage({messages: [this.buy_sell_res.message],dismissible: true,timeout: 1000,type: 'success'});
       this.enableFormbuy();
+      if (this.buy_sell_res.success=="true")
+      {
+        this.toster.Success(this.buy_sell_res.message);
+      }
+      else
+      {
+        this.toster.Warning(this.buy_sell_res.message);
+      }
     });
   }
 
@@ -163,9 +169,15 @@ export class ExchangeComponent implements OnInit
     this.authService.buy_sell(sell).subscribe(data=>
     {
       this.buy_sell_res=data;
-      console.log(this.buy_sell_res.message);
-      this.ngFlashMessageService.showFlashMessage({messages: [this.buy_sell_res.message],dismissible: true,timeout: 1000,type: 'danger'});
       this.enableFormsell();
+      if (this.buy_sell_res.success=="true")
+      {
+        this.toster.Success(this.buy_sell_res.message);
+      }
+      else
+      {
+        this.toster.Warning(this.buy_sell_res.message);
+      }
     });
   }
 

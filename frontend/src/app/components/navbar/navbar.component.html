@@ -98,9 +98,9 @@
             </div>
                                                                           <!--Body-->
             <div class="modal-body">
-              <div class="container-fluid row show-hide-message">
-                <div class="col-12 text-center">
-                  <flash-messages></flash-messages>
+              <div class="row show-hide-message">
+                <div class="col-12 text-center" [ngClass]="messageClass">
+                  {{ message }}
                 </div>
               </div>
               <form [formGroup]="register" (submit)="onSubmitRegister()" autocomplete="off">

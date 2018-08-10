@@ -131,17 +131,15 @@ export class NavbarComponent implements OnInit
       this.registerRes=data;
       if (this.registerRes.success=="false")
       {
-        this.flashMessagesService.show(this.registerRes.message, { cssClass: 'alert-danger', timeout: 1500 });
-        // this.messageClass = 'alert alert-danger';
-        // this.message = this.registerRes.message;
+        this.messageClass = 'alert alert-danger';
+        this.message = this.registerRes.message;
         this.processing = false;
         this.enableForm();
       }
       else
       {
-        this.flashMessagesService.show(this.registerRes.message, { cssClass: 'alert-success', timeout: 1500 });
-        // this.messageClass = 'alert alert-success';
-        // this.message = this.registerRes.message;
+        this.messageClass = 'alert alert-success';
+        this.message = this.registerRes.message;
         setTimeout(() =>
         {
           location.reload();
@@ -177,17 +175,15 @@ export class NavbarComponent implements OnInit
       console.log(this.loginRes);
       if (this.loginRes.success=="false")
       {
-        this.flashMessagesService.show(this.loginRes.message, { cssClass: 'alert-danger', timeout: 1500 });
-        // this.messageClass = 'alert alert-danger';
-        // this.message = this.loginRes.message;
+        this.messageClass = 'alert alert-danger';
+        this.message = this.loginRes.message;
         this.processing = false;
         this.enableFormLogin();
       }
       else
       {
-        this.flashMessagesService.show(this.loginRes.message, { cssClass: 'alert-success', timeout: 1500 });
-        // this.messageClass = 'alert alert-success';
-        // this.message = this.loginRes.message;
+        this.messageClass = 'alert alert-success';
+        this.message = this.loginRes.message;
         this.authService.storeUserData(this.loginRes.token, this.loginRes.user, this.loginRes.id, this.loginRes.isAdmin);
         setTimeout(() =>
         {

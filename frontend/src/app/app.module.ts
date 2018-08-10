@@ -12,12 +12,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
-import { NgFlashMessagesModule } from 'ng-flash-messages';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule, MatTabsModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
+import { TosterService } from './services/toster.service';
 import { AuthService } from './services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
@@ -82,7 +82,6 @@ import { CoinsComponent } from './components/dashboard/user-details/coins/coins.
     MatChipsModule,
     HttpClientModule,
     FlashMessagesModule.forRoot(),
-    NgFlashMessagesModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     MatGridListModule,
     MatCardModule,
@@ -90,7 +89,7 @@ import { CoinsComponent } from './components/dashboard/user-details/coins/coins.
     ChartsModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [AuthService, AuthGuard, GraphComponent, ExchangeComponent, DashboardComponent],
+  providers: [AuthService, TosterService, AuthGuard, GraphComponent, ExchangeComponent, DashboardComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -78,7 +78,7 @@ exports.changepass = function(req,res)
           }
           else
           {
-            res.json({ success: true, message: "User Updated !!!" });
+            res.json({ success: "true", message: "User Updated !!!" });
           }
         });
       }

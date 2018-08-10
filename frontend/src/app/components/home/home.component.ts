@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthGuard } from '../../guards/auth.guard';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import { TosterService } from '../../services/toster.service';
 import * as $ from 'jquery';
 
 @Component({
@@ -16,13 +16,13 @@ export class HomeComponent implements OnInit
   message;
   previousUrl;
 
-  constructor(private authGuard: AuthGuard, private _flashMessagesService: FlashMessagesService) {}
+  constructor(private authGuard: AuthGuard, public toster:TosterService) {}
 
   ngOnInit()
   {
     if(this.authGuard.redirectUrl)
     {
-      this._flashMessagesService.show('Login to access this page !!!', { cssClass: 'alert-danger', timeout: 1500 });
+      this.toster.Warning('Login to access this page !!!');
       this.previousUrl= this.authGuard.redirectUrl;
       this.authGuard.redirectUrl=undefined;
     }
