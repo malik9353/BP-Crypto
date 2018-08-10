@@ -3,13 +3,16 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';import { ModalModule, WavesModule, InputsModule } from 'angular-bootstrap-md'
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ModalModule, WavesModule, InputsModule } from 'angular-bootstrap-md'
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+
+import { NgFlashMessagesModule } from 'ng-flash-messages';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule, MatTabsModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule} from '@angular/material';
 
@@ -35,6 +38,7 @@ import { UserDetailsComponent } from './components/dashboard/user-details/user-d
 import { SlidebarComponent } from './components/slidebar/slidebar.component';
 import { PieChartComponent } from './components/ui/pie-chart/pie-chart.component';
 import { CoinsComponent } from './components/dashboard/user-details/coins/coins.component';
+// import { RateChartComponent } from './components/exchange/rate-chart/rate-chart.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +61,7 @@ import { CoinsComponent } from './components/dashboard/user-details/coins/coins.
     SlidebarComponent,
     PieChartComponent,
     CoinsComponent
+    // RateChartComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +82,7 @@ import { CoinsComponent } from './components/dashboard/user-details/coins/coins.
     MatChipsModule,
     HttpClientModule,
     FlashMessagesModule.forRoot(),
+    NgFlashMessagesModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     MatGridListModule,
     MatCardModule,

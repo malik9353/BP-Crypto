@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocketService } from '../../services/socket.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import { NgFlashMessageService } from 'ng-flash-messages';
 import { AuthService } from '../../services/auth.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { Observable } from 'rxjs';
@@ -59,7 +59,7 @@ export class ExchangeComponent implements OnInit
   buy: FormGroup;
   processing = false;
 
-  constructor(private formBuilder: FormBuilder, private dashboardComponent:DashboardComponent, private authService:AuthService, private _flashMessagesService: FlashMessagesService, private socketService: SocketService)
+  constructor(private formBuilder: FormBuilder, private dashboardComponent:DashboardComponent, private authService:AuthService, private ngFlashMessageService: NgFlashMessageService, private socketService: SocketService)
   {
     this.createForm();
   }
@@ -69,18 +69,39 @@ export class ExchangeComponent implements OnInit
     this.buy = this.formBuilder.group(
     {
       price: ['', Validators.compose([
-        Validators.required
+        Validators.required,
+        this.validatePrice
       ])],
       quantity: ['', Validators.compose([
-        Validators.required
+        Validators.required,
+        this.validatePrice
       ])]
     });
 
     this.sell = this.formBuilder.group(
     {
-      price: ['', Validators.required],
-      quantity: ['', Validators.required]
+      price1: ['', Validators.compose([
+        Validators.required,
+        this.validatePrice
+      ])],
+      quantity1: ['', Validators.compose([
+        Validators.required,
+        this.validatePrice
+      ])]
     });
+  }
+
+  validatePrice(controls)
+  {
+    const regExp = new RegExp(/[0-9]+(\.[0-9][0-9]?)?/);
+    if (regExp.test(controls.value))
+    {
+      return null;
+    }
+    else
+    {
+      return {'validatePrice': true }
+    }
   }
 
   coins(cryptos)
@@ -102,19 +123,18 @@ export class ExchangeComponent implements OnInit
 
   disableFormsell()
   {
-    this.sell.controls['price'].disable();
-    this.sell.controls['quantity'].disable();
+    this.sell.controls['price1'].disable();
+    this.sell.controls['quantity1'].disable();
   }
 
   enableFormsell()
   {
-    this.sell.controls['price'].enable();
-    this.sell.controls['quantity'].enable();
+    this.sell.controls['price1'].enable();
+    this.sell.controls['quantity1'].enable();
   }
 
   onSubmitBuy()
   {
-    this.processing=true;
     this.disableFormbuy();
     const buy = {
       type: "buy",
@@ -126,28 +146,25 @@ export class ExchangeComponent implements OnInit
     {
       console.log(data);
       this.buy_sell_res=data;
-      this._flashMessagesService.show(this.buy_sell_res.message, { cssClass: 'alert-info', timeout: 2000 });
-      this.processing=false;
+      this.ngFlashMessageService.showFlashMessage({messages: [this.buy_sell_res.message],dismissible: true,timeout: 1000,type: 'success'});
       this.enableFormbuy();
     });
   }
 
   onSubmitSell()
   {
-    this.processing=true;
     this.disableFormsell();
     const sell = {
       type: "sell",
-      quantity: this.sell.get('quantity').value,
-      price: this.sell.get('price').value,
+      quantity: this.sell.get('quantity1').value,
+      price: this.sell.get('price1').value,
       coinName: this.coin
     }
     this.authService.buy_sell(sell).subscribe(data=>
     {
-      console.log(data);
       this.buy_sell_res=data;
-      this._flashMessagesService.show(this.buy_sell_res.message, { cssClass: 'alert-danger', timeout: 2000 });
-      this.processing=false;
+      console.log(this.buy_sell_res.message);
+      this.ngFlashMessageService.showFlashMessage({messages: [this.buy_sell_res.message],dismissible: true,timeout: 1000,type: 'danger'});
       this.enableFormsell();
     });
   }
@@ -217,7 +234,7 @@ export class ExchangeComponent implements OnInit
     this.g=1;
     this.authService.getAddress(this.coinz).subscribe(data=>
     {
-      console.log(data);
+      // console.log(data);
       this.res=data;
       if(this.res.coin!=null)
       {
@@ -227,6 +244,7 @@ export class ExchangeComponent implements OnInit
 
     this.socketService.getPrice().subscribe(data =>
     {
+      // console.log(data);
       this.sys=data;
       if(this.coin==this.sys.symbol)
       {
@@ -236,7 +254,7 @@ export class ExchangeComponent implements OnInit
         this.price.symbol=this.price.symbol.slice(0,this.index);
 
         this.bidsasks.push(this.bidask);
-        if (this.bidsasks.length > 3) this.bidsasks.splice(0, 1);
+        if (this.bidsasks.length > 5) this.bidsasks.splice(0, 1);
 
         if(this.g==1)
         {
@@ -252,7 +270,7 @@ export class ExchangeComponent implements OnInit
     this.connectionData = this.socketService.getmarket().subscribe(data =>
     {
       this.market.push(data);
-      if (this.market.length > 5) this.market.splice(0, 1);
+      if (this.market.length > 15) this.market.splice(0, 1);
     });
 
     this.connectionData1 = this.socketService.miniTicker().subscribe(data =>
