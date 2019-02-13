@@ -31,7 +31,7 @@ var io = socket(server);
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '../public'));
+app.use(express.static(__dirname + '/public'));
 app.use(cors({origin: 'http://localhost:4200'}));
 
 if (process.env.NODE_ENV !== 'production')
@@ -58,7 +58,7 @@ var thisCoin = "";
 
 app.get('*', (req, res) =>
 {
-  res.sendFile(path.join(__dirname + '../public/index.html'));
+  res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 
