@@ -61,7 +61,7 @@ export class SocketService
   {
     let observable = new Observable(observer =>
       {
-      this.socket = io(this.domain);
+      this.socket = io("http://localhost:3001");
       this.socket.on('coin-price', (data) =>
       {
         observer.next(data);

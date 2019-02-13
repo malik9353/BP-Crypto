@@ -10,7 +10,6 @@ import * as $ from 'jquery';
 
 export class GraphComponent implements OnInit
 {
-
   constructor() {}
 
   chart(coinz)
