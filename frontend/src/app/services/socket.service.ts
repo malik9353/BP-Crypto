@@ -14,7 +14,7 @@ export class SocketService
 {
   private socket;
   options;
-  domain = this.authService.domain;
+  domain = "";
 
   constructor(private authService: AuthService,private http: HttpClient) { }
 
