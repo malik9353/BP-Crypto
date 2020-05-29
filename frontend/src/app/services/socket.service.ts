@@ -6,136 +6,109 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable(
-{
-  providedIn: 'root'
-})
+  {
+    providedIn: 'root'
+  })
 
-export class SocketService
-{
+export class SocketService {
   private socket;
   options;
-  domain = "";
+  domain = "http://localhost:3001";
 
-  constructor(private authService: AuthService,private http: HttpClient) { }
+  constructor(private authService: AuthService, private http: HttpClient) { }
 
-  createAuthenticationHeaders()
-  {
+  createAuthenticationHeaders() {
     this.authService.loadToken();
     this.options = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json','authorization': this.authService.authToken })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': this.authService.authToken })
     };
   }
 
-  checkPrice(coin)
-  {
+  checkPrice(coin) {
     this.createAuthenticationHeaders();
     this.socket.emit('coin-price', coin, this.options);
   }
 
-  checktrade(coin,id)
-  {
+  checktrade(coin, id) {
     this.createAuthenticationHeaders();
     this.socket.emit('tradeHistory', coin, id, this.options);
   }
 
-  checkTicker(coin)
-  {
+  checkTicker(coin) {
     this.createAuthenticationHeaders();
     this.socket.emit('mini-ticker', coin, this.options);
   }
 
-  checkmarket(coin)
-  {
+  checkmarket(coin) {
     this.createAuthenticationHeaders();
     this.socket.emit('coin-market', coin, this.options);
   }
 
-  candlestick(coin)
-  {
+  candlestick(coin) {
     this.createAuthenticationHeaders();
     this.socket.emit('candlestick', coin, this.options);
   }
 
 
-  getPrice()
-  {
-    let observable = new Observable(observer =>
-      {
+  getPrice() {
+    let observable = new Observable(observer => {
       this.socket = io("http://localhost:3001");
-      this.socket.on('coin-price', (data) =>
-      {
+      this.socket.on('coin-price', (data) => {
         observer.next(data);
       });
-      return () =>
-      {
+      return () => {
         this.socket.disconnect();
       };
     });
     return observable;
   }
 
-  getTrade()
-  {
-    let observable = new Observable(observer =>
-      {
+  getTrade() {
+    let observable = new Observable(observer => {
       this.socket = io(this.domain);
-      this.socket.on('tradeHistory', (data) =>
-      {
+      this.socket.on('tradeHistory', (data) => {
         observer.next(data);
       });
-      return () =>
-      {
+      return () => {
         this.socket.disconnect();
       };
     });
     return observable;
   }
 
-  miniTicker()
-  {
-    let observable = new Observable(observer =>
-      {
+  miniTicker() {
+    let observable = new Observable(observer => {
       this.socket = io(this.domain);
-      this.socket.on('miniTicker', (data) =>
-      {
+      this.socket.on('miniTicker', (data) => {
         observer.next(data);
       });
-      return () =>
-      {
+      return () => {
         this.socket.disconnect();
       };
     });
     return observable;
   }
 
-  getmarket()
-  {
-    let observable = new Observable(observer =>
-      {
+  getmarket() {
+    let observable = new Observable(observer => {
       this.socket = io(this.domain);
-      this.socket.on('coin-market', (data) =>
-      {
+      this.socket.on('coin-market', (data) => {
         observer.next(data);
       });
-      return () =>
-      {
+      return () => {
         this.socket.disconnect();
       };
     });
     return observable;
   }
 
-  getcandlestick()
-  {
-    let observable = new Observable(observer =>
-      {
+  getcandlestick() {
+    let observable = new Observable(observer => {
       this.socket = io(this.domain);
-      this.socket.on('candlestick', (data) =>
-      {
+      this.socket.on('candlestick', (data) => {
         observer.next(data);
       });
-      return () =>
-      {
+      return () => {
         this.socket.disconnect();
       };
     });
