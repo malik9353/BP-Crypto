@@ -2,18 +2,16 @@ import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-@Injectable(
-  {
-    providedIn: 'root'
-  })
+@Injectable({
+  providedIn: 'root'
+})
 
 export class SocketService {
   private socket;
   options;
-  domain = "";
+  domain = "http://localhost:3001";
 
   constructor(private authService: AuthService, private http: HttpClient) { }
 
@@ -51,7 +49,7 @@ export class SocketService {
 
   getPrice() {
     let observable = new Observable(observer => {
-      this.socket = io("");
+      this.socket = io("http://localhost:3001");
       this.socket.on('coin-price', (data) => {
         observer.next(data);
       });
