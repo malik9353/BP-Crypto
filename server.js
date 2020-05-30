@@ -36,18 +36,15 @@ mongoose.connect('mongodb://admin1:admin1@ds231941.mlab.com:31941/ds-exchange', 
 mongoose.connection.once('connected', () => console.log('Connected to database'));
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', require('./routes/unauthenticated.js'));
 require('./config/passport')(passport);
 app.use('/api', passport.authenticate('jwt', { session: false }), require('./routes/authenticated.js'));
-app.get('*', (req, res) => res.status(404).send({ error: 'page not found' }));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/index.html'));
-});
+app.get('*', (req, res) => res.sendFile(path.join(__dirname + '/public/index.html')));
 
 
 binance.options({
@@ -60,14 +57,12 @@ binance.options({
 io.on('connection', function (socket) {
   socket.on('coin-price', function (coin) {
     coinname = coin;
-    console.log(coin);
-    binance.websockets.prevDay(coin, (error, response) => {
-      if (coin == coinname) {
-        binance.bookTickers(coin, (error, bidask) => {
-          console.log("Coin =", response);
+    binance.bookTickers(coin, (error, bidask) => {
+      binance.websockets.prevDay(coin, (error, response) => {
+        if (coin == coinname) {
           io.sockets.emit("coin-price", { type: 'new-message', open: response.open, high: response.high, low: response.low, close: response.close, volume: response.quoteVolume, symbol: response.symbol, change: response.priceChange, bidask: bidask });
-        });
-      }
+        }
+      });
     });
   });
 

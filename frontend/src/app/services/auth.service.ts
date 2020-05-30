@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  domain = "http://localhost:3001";
-  authToken;
   user;
   options;
+  authToken;
+  domain = "";
   result: any;
 
   constructor(private http: HttpClient) { }

@@ -13,7 +13,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SocketService {
   private socket;
   options;
-  domain = "http://localhost:3001";
+  domain = "";
 
   constructor(private authService: AuthService, private http: HttpClient) { }
 
@@ -51,7 +51,7 @@ export class SocketService {
 
   getPrice() {
     let observable = new Observable(observer => {
-      this.socket = io("http://localhost:3001");
+      this.socket = io("");
       this.socket.on('coin-price', (data) => {
         observer.next(data);
       });
