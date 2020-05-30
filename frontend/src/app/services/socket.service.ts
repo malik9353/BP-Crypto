@@ -49,7 +49,6 @@ export class SocketService {
     this.socket.emit('candlestick', coin, this.options);
   }
 
-
   getPrice() {
     let observable = new Observable(observer => {
       this.socket = io("http://localhost:3001");
@@ -101,18 +100,4 @@ export class SocketService {
     });
     return observable;
   }
-
-  getcandlestick() {
-    let observable = new Observable(observer => {
-      this.socket = io(this.domain);
-      this.socket.on('candlestick', (data) => {
-        observer.next(data);
-      });
-      return () => {
-        this.socket.disconnect();
-      };
-    });
-    return observable;
-  }
-
 }

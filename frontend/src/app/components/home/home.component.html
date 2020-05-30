@@ -41,13 +41,18 @@
         <div class="container-fluid clearfix">
           <div class="nav-inner">
             <div class="logo-outer">
-              <div class="logo"><a href="index.html">
+              <div class="logo"><a routerLink="/">
                   <img src="../../../assets/home/logo.png" alt="logo-image">
                 </a></div>
             </div>
             <div class="nav-outer clearfix">
-              <a href="#" class="theme-btn btn-style-one" (click)="form.show()">login</a>
-              <a href="#" class="theme-btn btn-style-two" (click)="form1.show()">sign up</a>
+              <a *ngIf="authService.loggedIn()" routerLink="/exchange" class="theme-btn btn-style-one">Exchange</a>
+              <a *ngIf="authService.loggedIn()" href='#' (click)="onLogoutClick()"
+                class="theme-btn btn-style-two">Logout</a>
+              <a *ngIf="!authService.loggedIn()" href="#" class="theme-btn btn-style-one"
+                (click)="form.show()">login</a>
+              <a *ngIf="!authService.loggedIn()" href="#" class="theme-btn btn-style-two" (click)="form1.show()">sign
+                up</a>
             </div>
           </div>
         </div>
@@ -62,7 +67,7 @@
       <div class="row">
         <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
           <div class="content-box">
-            <h1>How to Create Your Own <span>Cryptocurrency</span> Offline Ripple Wallet?</h1>
+            <h1>The Future of <span>Financing Technology</span> is Here</h1>
           </div>
         </div>
         <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
@@ -80,17 +85,19 @@
                 <i class="icon">
                   <img src="../../../assets/home/euro.png" alt="image">
                 </i>
-                Buy BTC Price
-                <span class="price">96,25222.000</span>
+                Buy {{coinSelected}} Price
+                <span class="price">{{rates[coinSelected + 'USDT'] + 1}}</span>
               </li>
               <li>
                 <mat-form-field>
                   <mat-label class="white-text">Select the Coin</mat-label>
-                  <mat-select [(value)]="selected">
-                    <mat-option>None</mat-option>
-                    <mat-option value="option1"><img src="../../../assets/home/BTC.png" alt="BTC-Image" class="mr-3" width="25px">BTC</mat-option>
-                    <mat-option value="option2"><img src="../../../assets/home/LTC.png" alt="LTC-Image" class="mr-3" width="25px">LTC</mat-option>
-                    <mat-option value="option3"><img src="../../../assets/home/ETH.png" alt="ETH-Image" class="mr-3" width="25px">ETH</mat-option>
+                  <mat-select [(value)]="coinSelected">
+                    <mat-option value="BTC"><img src="../../../assets/home/BTC.png" alt="BTC-Image" class="mr-3"
+                        width="25px">Bitcoin (BTC)</mat-option>
+                    <mat-option value="LTC"><img src="../../../assets/home/LTC.png" alt="LTC-Image" class="mr-3"
+                        width="25px">Litecoin (LTC)</mat-option>
+                    <mat-option value="ETH"><img src="../../../assets/home/ETH.png" alt="ETH-Image" class="mr-3"
+                        width="25px">Ethereum (ETH)</mat-option>
                   </mat-select>
                 </mat-form-field>
 
@@ -100,8 +107,8 @@
                 <i class="icon">
                   <img src="../../../assets/home/euro.png" alt="image">
                 </i>
-                Sell BTC Price
-                <span class="price">96,25222.000</span>
+                Sell {{coinSelected}} Price
+                <span class="price">{{rates[coinSelected + 'USDT'] - 1}}</span>
               </li>
             </ul>
           </div>
@@ -159,8 +166,8 @@
             <p>Not a member? <a class="link-text" href="#" (click)="form.hide() || form1.show()">Sign Up</a></p>
             <p>Forgot <a class="link-text" href="#">Password?</a></p>
           </div>
-          <button type="button" class="btn btn-outline-primary btn-close ml-auto" data-dismiss="modal" (click)="form.hide()"
-            mdbWavesEffect>Close</button>
+          <button type="button" class="btn btn-outline-primary btn-close ml-auto" data-dismiss="modal"
+            (click)="form.hide()" mdbWavesEffect>Close</button>
         </div>
       </div>
     </div>
@@ -215,7 +222,7 @@
             </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary btn-signup col-sm-4 waves-light" mdbWavesEffect>Sign up 
+              <button type="submit" class="btn btn-primary btn-signup col-sm-4 waves-light" mdbWavesEffect>Sign up
                 <i class="fa fa-sign-in ml-1"></i></button>
             </div>
           </form>
@@ -223,10 +230,11 @@
         <!--Footer-->
         <div class="modal-footer">
           <div class="options text-center text-md-right mt-1">
-            <p>Already have an account? <a class="link-text" href="#" (click)="form1.hide() || form.show()">Log In</a></p>
+            <p>Already have an account? <a class="link-text" href="#" (click)="form1.hide() || form.show()">Log In</a>
+            </p>
           </div>
-          <button type="button" class="btn btn-outline-primary btn-close ml-auto" data-dismiss="modal" (click)="form1.hide()"
-            mdbWavesEffect>Close</button>
+          <button type="button" class="btn btn-outline-primary btn-close ml-auto" data-dismiss="modal"
+            (click)="form1.hide()" mdbWavesEffect>Close</button>
         </div>
       </div>
     </div>

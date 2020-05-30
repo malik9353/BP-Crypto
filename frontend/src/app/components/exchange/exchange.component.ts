@@ -1,11 +1,8 @@
-import { Component, OnInit,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocketService } from '../../services/socket.service';
 import { AuthService } from '../../services/auth.service';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { TosterService } from '../../services/toster.service';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-exchange',
@@ -13,16 +10,16 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./exchange.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ExchangeComponent implements OnInit
-{
-  showSpinner:boolean = true;
+
+export class ExchangeComponent implements OnInit {
+  showSpinner: boolean = true;
   price;
   adressres;
-  bitcoin=0;
-  altcoin=0;
-  market=[];
+  bitcoin = 0;
+  altcoin = 0;
+  market = [];
   total;
-  coinz="XRP";
+  coinz = "ETH";
   alpha;
   info;
   req;
@@ -32,26 +29,26 @@ export class ExchangeComponent implements OnInit
   connectionData;
   connectionData1;
   trades;
-  oldprice=0;
-  askk=[];
+  oldprice = 0;
+  askk = [];
   bidask;
-  bidsasks=[];
+  bidsasks = [];
   sub;
-  g=0;
+  g = 0;
   p1;
-  name=false;
-  prize=0;
+  name = false;
+  prize = 0;
   res;
   a1;
   p2;
   a2;
   index;
   sys;
-  i=0;
-  x=0;
-  y=0;
-  filled=[];
-  unfilled=[];
+  i = 0;
+  x = 0;
+  y = 0;
+  filled = [];
+  unfilled = [];
   ids = localStorage.getItem('id');
   coin;
   buy_sell_res;
@@ -59,15 +56,12 @@ export class ExchangeComponent implements OnInit
   buy: FormGroup;
   processing = false;
 
-  constructor(private formBuilder: FormBuilder, private dashboardComponent:DashboardComponent, public toster:TosterService, private authService:AuthService, private socketService: SocketService)
-  {
+  constructor(private formBuilder: FormBuilder, public toster: TosterService, private authService: AuthService, private socketService: SocketService) {
     this.createForm();
   }
 
-  createForm()
-  {
-    this.buy = this.formBuilder.group(
-    {
+  createForm() {
+    this.buy = this.formBuilder.group({
       price: ['', Validators.compose([
         Validators.required,
         this.validatePrice
@@ -78,8 +72,7 @@ export class ExchangeComponent implements OnInit
       ])]
     });
 
-    this.sell = this.formBuilder.group(
-    {
+    this.sell = this.formBuilder.group({
       price1: ['', Validators.compose([
         Validators.required,
         this.validatePrice
@@ -91,50 +84,39 @@ export class ExchangeComponent implements OnInit
     });
   }
 
-  validatePrice(controls)
-  {
+  validatePrice(controls) {
     const regExp = new RegExp(/[0-9]+(\.[0-9][0-9]?)?/);
     if (regExp.test(controls.value))
-    {
       return null;
-    }
     else
-    {
-      return {'validatePrice': true }
-    }
+      return { 'validatePrice': true }
   }
 
-  coins(cryptos)
-  {
-    this.coinz=cryptos;
+  coins(cryptos) {
+    this.coinz = cryptos;
   }
 
-  disableFormbuy()
-  {
+  disableFormbuy() {
     this.buy.controls['price'].disable();
     this.buy.controls['quantity'].disable();
   }
 
-  enableFormbuy()
-  {
+  enableFormbuy() {
     this.buy.controls['price'].enable();
     this.buy.controls['quantity'].enable();
   }
 
-  disableFormsell()
-  {
+  disableFormsell() {
     this.sell.controls['price1'].disable();
     this.sell.controls['quantity1'].disable();
   }
 
-  enableFormsell()
-  {
+  enableFormsell() {
     this.sell.controls['price1'].enable();
     this.sell.controls['quantity1'].enable();
   }
 
-  onSubmitBuy()
-  {
+  onSubmitBuy() {
     this.disableFormbuy();
     const buy = {
       type: "buy",
@@ -142,23 +124,16 @@ export class ExchangeComponent implements OnInit
       price: this.buy.get('price').value,
       coinName: this.coin
     }
-    this.authService.buy_sell(buy).subscribe(data=>
-    {
-      this.buy_sell_res=data;
+    this.authService.buy_sell(buy).subscribe(data => {
+      this.buy_sell_res = data;
       this.enableFormbuy();
-      if (this.buy_sell_res.success=="true")
-      {
+      if (this.buy_sell_res.success == "true")
         this.toster.Success(this.buy_sell_res.message);
-      }
-      else
-      {
-        this.toster.Warning(this.buy_sell_res.message);
-      }
+      else this.toster.Warning(this.buy_sell_res.message);
     });
   }
 
-  onSubmitSell()
-  {
+  onSubmitSell() {
     this.disableFormsell();
     const sell = {
       type: "sell",
@@ -166,150 +141,122 @@ export class ExchangeComponent implements OnInit
       price: this.sell.get('price1').value,
       coinName: this.coin
     }
-    this.authService.buy_sell(sell).subscribe(data=>
-    {
-      this.buy_sell_res=data;
+    this.authService.buy_sell(sell).subscribe(data => {
+      this.buy_sell_res = data;
       this.enableFormsell();
-      if (this.buy_sell_res.success=="true")
-      {
+      if (this.buy_sell_res.success == "true") {
         this.toster.Success(this.buy_sell_res.message);
       }
-      else
-      {
+      else {
         this.toster.Warning(this.buy_sell_res.message);
       }
     });
   }
 
-  cancel()
-  {
-    this.authService.cancelOrder().subscribe(data=>
-    {
+  cancel() {
+    this.authService.cancelOrder().subscribe(data => {
       console.log(data);
     });
   }
 
-  cancelone(id,symbol)
-  {
-    this.unfilled.forEach( (item, index) =>
-    {
-     if(item.status.orderId === id) this.unfilled.splice(index,1);
+  cancelone(id, symbol) {
+    this.unfilled.forEach((item, index) => {
+      if (item.status.orderId === id) this.unfilled.splice(index, 1);
     });
-    this.authService.cancelone(id,symbol).subscribe(data=>
-    {
+    this.authService.cancelone(id, symbol).subscribe(data => {
       console.log(data);
     });
   }
 
-  prices(crypto)
-  {
-    this.showSpinner=true;
-    this.coinz=crypto;
-    this.coin= crypto.concat("BTC");
+  prices(crypto) {
+    this.showSpinner = true;
+    this.coinz = crypto;
+    this.coin = crypto.concat("USDT");
     this.socketService.checkPrice(this.coin);
-    this.g=1;
-    this.price=[];
-    this.name=false;
-    this.bidask=[];
-    this.req=0;
-    this.authService.getAddress(this.coinz).subscribe(data=>
-    {
-      this.adressres=data;
-      if(this.adressres.coin!=null)
-      {
-        this.altcoin=this.adressres.coin.amount[0];
-      }
-      this.bitcoin=this.adressres.btc.amount[0];
-    })
+    this.g = 1;
+    this.price = [];
+    this.name = false;
+    this.bidask = [];
+    this.req = 0;
+    this.authService.getAddress(this.coinz).subscribe(data => {
+      this.adressres = data;
+      if (this.adressres.coin != null)
+        this.altcoin = this.adressres.coin.amount[0];
+      this.bitcoin = this.adressres.btc.amount[0];
+    });
   }
 
-  ticker(crypto)
-  {
-    this.coin= crypto.concat("BTC");
+  ticker(crypto) {
+    this.coin = crypto.concat("USDT");
     this.socketService.checkTicker(this.coin);
   }
 
-  markets(crypto)
-  {
-    this.coin= crypto.concat("BTC");
+  markets(crypto) {
+    this.coin = crypto.concat("USDT");
     this.socketService.checkmarket(this.coin);
   }
 
-  tradeHistory()
-  {
-    this.socketService.checktrade("XRPBTC",this.ids);
+  tradeHistory() {
+    this.socketService.checktrade("ETHUSDT", this.ids);
   }
 
-  ngOnInit()
-  {
-    this.dashboardComponent.localStorage();
-    this.g=1;
-    this.authService.getAddress(this.coinz).subscribe(data=>
-    {
+  ngOnInit() {
+    this.g = 1;
+    this.authService.getAddress(this.coinz).subscribe(data => {
       // console.log(data);
-      this.res=data;
-      if(this.res.coin!=null)
-      {
-        this.altcoin=this.res.coin.amount[0];
+      this.res = data;
+      if (this.res.coin != null) {
+        this.altcoin = this.res.coin.amount[0];
       }
     })
 
-    this.socketService.getPrice().subscribe(data =>
-    {
+    this.socketService.getPrice().subscribe(data => {
       // console.log(data);
-      this.sys=data;
-      if(this.coin==this.sys.symbol)
-      {
-        this.price=data;
-        this.bidask=this.price.bidask;
-        this.index=this.price.symbol.indexOf("B");
-        this.price.symbol=this.price.symbol.slice(0,this.index);
+      this.sys = data;
+      if (this.coin == this.sys.symbol) {
+        this.price = data;
+        this.bidask = this.price.bidask;
+        this.index = this.price.symbol.indexOf("B");
+        this.price.symbol = this.price.symbol.slice(0, this.index);
 
         this.bidsasks.push(this.bidask);
         if (this.bidsasks.length > 5) this.bidsasks.splice(0, 1);
 
-        if(this.g==1)
-        {
+        if (this.g == 1) {
 
-          this.prize=this.price.close;
+          this.prize = this.price.close;
         }
-        this.g=0;
-        this.showSpinner=false;
-        this.name=true;
+        this.g = 0;
+        this.showSpinner = false;
+        this.name = true;
       }
     });
 
-    this.connectionData = this.socketService.getmarket().subscribe(data =>
-    {
+    this.connectionData = this.socketService.getmarket().subscribe(data => {
       this.market.push(data);
       if (this.market.length > 15) this.market.splice(0, 1);
     });
 
-    this.connectionData1 = this.socketService.miniTicker().subscribe(data =>
-    {
+    this.connectionData1 = this.socketService.miniTicker().subscribe(data => {
       this.askk.push(data);
       if (this.askk.length > 5) this.askk.splice(0, 1);
     });
 
-    this.socketService.getTrade().subscribe(data =>
-    {
-      this.filled=[];
-      this.unfilled=[];
-      this.x=0;
-      this.y=0;
-      this.trades=data;
-      this.trades=this.trades.history;
-      for(this.i=0;this.i<this.trades.length;this.i++)
-      {
-        if(this.trades[this.i].status.status=="FILLED")
-        {
-          this.filled[this.x]=this.trades[this.i];
+    this.socketService.getTrade().subscribe(data => {
+      this.filled = [];
+      this.unfilled = [];
+      this.x = 0;
+      this.y = 0;
+      this.trades = data;
+      this.trades = this.trades.history;
+      for (this.i = 0; this.i < this.trades.length; this.i++) {
+        if (this.trades[this.i].status.status == "FILLED") {
+          this.filled[this.x] = this.trades[this.i];
           this.x++;
         }
-        else if(this.trades[this.i].status.status=="NEW")
-        {
-          this.trades[this.i].status.status=="UNFILLED"
-          this.unfilled[this.y]=this.trades[this.i];
+        else if (this.trades[this.i].status.status == "NEW") {
+          this.trades[this.i].status.status == "UNFILLED"
+          this.unfilled[this.y] = this.trades[this.i];
           this.y++;
         }
       }
@@ -320,25 +267,20 @@ export class ExchangeComponent implements OnInit
     //   this.tradeHistory();
     // });
 
-    setTimeout(() =>
-    {
+    setTimeout(() => {
       this.tradeHistory();
     }, 500);
 
-    setTimeout(() =>
-    {
-      this.prices("XRP");
+    setTimeout(() => {
+      this.prices("ETH");
     }, 500);
 
-    setTimeout(() =>
-    {
-      this.ticker("XRP");
+    setTimeout(() => {
+      this.ticker("ETH");
     }, 2000);
 
-    setTimeout(() =>
-    {
-      this.markets("XRP");
+    setTimeout(() => {
+      this.markets("ETH");
     }, 500);
   }
-
 }

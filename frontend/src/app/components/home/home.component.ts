@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
+import { SocketService } from '../../services/socket.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit
-{
+export class HomeComponent implements OnInit {
   hide = true;
   register: FormGroup;
-  login:FormGroup;
+  login: FormGroup;
   processing = false;
   message;
   messageClass;
@@ -23,20 +21,19 @@ export class HomeComponent implements OnInit
   emailMessage;
   usernameValid;
   usernameMessage;
+  coinSelected = 'BTC';
+  rates = {};
   registerRes;
   loginRes;
-  admin=localStorage.getItem('isAdmin');
-  show:boolean = false;
+  admin = localStorage.getItem('isAdmin');
+  show: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, public authService:AuthService, private router: Router,private flashMessagesService: FlashMessagesService)
-  {
+  constructor(private socketService: SocketService, private formBuilder: FormBuilder, public authService: AuthService, private router: Router, private flashMessagesService: FlashMessagesService) {
     this.createForm();
   }
 
-  createForm()
-  {
-    this.register = this.formBuilder.group(
-    {
+  createForm() {
+    this.register = this.formBuilder.group({
       email: ['', Validators.compose([
         Validators.required,
         this.validateEmail
@@ -56,69 +53,49 @@ export class HomeComponent implements OnInit
       checkbox: ['', Validators.required]
     });
 
-    this.login = this.formBuilder.group(
-    {
+    this.login = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  validateEmail(controls)
-  {
+  validateEmail(controls) {
     const regExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    if (regExp.test(controls.value))
-    {
+    if (regExp.test(controls.value)) {
       return null;
     }
-    else
-    {
+    else {
       return { 'validateEmail': true }
     }
   }
 
-  validateUsername(controls)
-  {
+  validateUsername(controls) {
     const regExp = new RegExp(/^[a-zA-Z0-9]+$/);
-    if (regExp.test(controls.value))
-    {
-      return null;
-    }
-    else
-    {
-      return { 'validateUsername': true }
-    }
+    if (regExp.test(controls.value)) return null;
+    else return { 'validateUsername': true }
   }
 
-  validatePassword(controls)
-  {
+  validatePassword(controls) {
     const regExp = new RegExp(/^(?=.*?[a-zA-Z])(?=.*?[\d]).{8,35}$/);
     if (regExp.test(controls.value))
-    {
       return null;
-    }
-    else
-    {
-      return { 'validatePassword': true }
-    }
+    else return { 'validatePassword': true }
   }
 
-  disableForm()
-  {
+  disableForm() {
     this.register.controls['email'].disable();
     this.register.controls['username'].disable();
     this.register.controls['password'].disable();
   }
 
-  enableForm()
-  {
+  enableForm() {
     this.register.controls['email'].enable();
     this.register.controls['username'].enable();
     this.register.controls['password'].enable();
   }
 
-  onSubmitRegister()
-  {
-    this.processing=true;
+  onSubmitRegister() {
+    this.processing = true;
     this.disableForm();
     const user = {
       email: this.register.get('email').value,
@@ -126,84 +103,70 @@ export class HomeComponent implements OnInit
       password: this.register.get('password').value
     }
 
-    this.authService.registerUser(user).subscribe(data =>
-    {
-      this.registerRes=data;
-      if (this.registerRes.success=="false")
-      {
+    this.authService.registerUser(user).subscribe(data => {
+      this.registerRes = data;
+      if (this.registerRes.success == "false") {
         this.messageClass = 'alert alert-danger';
         this.message = this.registerRes.message;
         this.processing = false;
         this.enableForm();
       }
-      else
-      {
+      else {
         this.messageClass = 'alert alert-success';
         this.message = this.registerRes.message;
-        setTimeout(() =>
-        {
+        setTimeout(() => {
           location.reload();
         }, 1000);
       }
     });
   }
 
-  disableFormLogin()
-  {
+  disableFormLogin() {
     this.login.controls['email'].disable();
     this.login.controls['password'].disable();
   }
 
-  enableFormLogin()
-  {
+  enableFormLogin() {
     this.login.controls['email'].enable();
     this.login.controls['password'].enable();
   }
 
-  onSubmitLogin()
-  {
-    this.processing=true;
+  onSubmitLogin() {
+    this.processing = true;
     this.disableFormLogin();
     const user = {
       email: this.login.get('email').value,
       password: this.login.get('password').value
     }
 
-    this.authService.login(user).subscribe(data =>
-    {
-      this.loginRes=data;
+    this.authService.login(user).subscribe(data => {
+      this.loginRes = data;
       console.log(this.loginRes);
-      if (this.loginRes.success=="false")
-      {
+      if (this.loginRes.success == "false") {
         this.messageClass = 'alert alert-danger';
         this.message = this.loginRes.message;
         this.processing = false;
         this.enableFormLogin();
       }
-      else
-      {
+      else {
         this.messageClass = 'alert alert-success';
         this.message = this.loginRes.message;
         this.authService.storeUserData(this.loginRes.token, this.loginRes.user, this.loginRes.id, this.loginRes.isAdmin);
-        setTimeout(() =>
-        {
+        setTimeout(() => {
           this.router.navigate(['/exchange']);
         }, 500);
       }
     });
   }
 
-  onLogoutClick()
-  {
+  onLogoutClick() {
     this.authService.logout();
     this.router.navigate(['/']);
   }
 
-  ngOnInit()
-  {
-    if(this.admin=="true")
-    {
-      this.show=true;
-    }
+  ngOnInit() {
+    if (this.admin == "true") this.show = true;
+    setTimeout(() => this.socketService.checkTicker('XRPBTC'), 500);
+    this.socketService.miniTicker().subscribe(data => this.rates = data['prices']);
   }
 }

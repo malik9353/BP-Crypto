@@ -6,13 +6,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const passport = require('passport');
 const binance = require('node-binance-api');
-const http = require('http');
 const socket = require('socket.io');
-var request = require('request');
 const cors = require('cors');
-const multer = require('multer');
-const fs = require('fs');
-const ejs = require('ejs');
 const path = require('path');
 var port = process.env.PORT || 3001;
 const cookieParser = require('cookie-parser');
@@ -22,9 +17,7 @@ var coin = require('./models/coin.js');
 var coinname = "";
 var app = require('express')();
 
-var server = app.listen(port, function () {
-  console.log(`Listening to port ${port}`);
-});
+var server = app.listen(port, () => console.log(`Listening to port ${port}`));
 
 var io = socket(server);
 app.use(cookieParser());
@@ -67,29 +60,25 @@ binance.options({
 io.on('connection', function (socket) {
   socket.on('coin-price', function (coin) {
     coinname = coin;
-    // console.log(coin);
+    console.log(coin);
     binance.websockets.prevDay(coin, (error, response) => {
       if (coin == coinname) {
-        binance.prices((error, ticker) => {
-          binance.bookTickers(coin, (error, bidask) => {
-            // console.log("Coin =",coin,"ticker =",ticker);
-            io.sockets.emit("coin-price", { type: 'new-message', open: response.open, high: response.high, low: response.low, close: response.close, volume: response.quoteVolume, symbol: response.symbol, change: response.priceChange, tickers: ticker, bidask: bidask });
-          });
+        binance.bookTickers(coin, (error, bidask) => {
+          console.log("Coin =", response);
+          io.sockets.emit("coin-price", { type: 'new-message', open: response.open, high: response.high, low: response.low, close: response.close, volume: response.quoteVolume, symbol: response.symbol, change: response.priceChange, bidask: bidask });
         });
       }
     });
   });
 
   socket.on('mini-ticker', function (coin) {
+    let prices = {};
     binance.websockets.miniTicker(markets => {
-      if (markets['BTCUSDT']) {
-        console.log(markets['BTCUSDT']);
-        console.log(markets['USDTLTC']);
-        console.log(markets['USDTETH']);
-      }
+      if (markets['BTCUSDT']) prices['BTCUSDT'] = markets['BTCUSDT']['open'];
+      if (markets['LTCUSDT']) prices['LTCUSDT'] = markets['LTCUSDT']['open'];
+      if (markets['ETHUSDT']) prices['ETHUSDT'] = markets['ETHUSDT']['open'];
 
-      // socket.broadcast.to(socket.id).emit("miniTicker",{ticker:markets});
-      io.sockets.emit("miniTicker", { ticker: markets });
+      io.sockets.emit("miniTicker", { ticker: markets, prices });
     });
   })
 

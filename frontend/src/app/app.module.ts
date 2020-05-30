@@ -25,14 +25,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { GraphComponent } from './components/exchange/graph/graph.component';
 import { RatesComponent } from './components/exchange/rates/rates.component';
 import { ExchangeComponent } from './components/exchange/exchange.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { TotalAssetsComponent } from './components/dashboard/total-assets/total-assets.component';
-import { TradeHistoryComponent } from './components/dashboard/trade-history/trade-history.component';
-import { UserDetailsComponent } from './components/dashboard/user-details/user-details.component';
 import { SlidebarComponent } from './components/slidebar/slidebar.component';
 import { PieChartComponent } from './components/ui/pie-chart/pie-chart.component';
-import { CoinsComponent } from './components/dashboard/user-details/coins/coins.component';
-// import { RateChartComponent } from './components/exchange/rate-chart/rate-chart.component';
 
 @NgModule({
   declarations: [
@@ -42,13 +36,8 @@ import { CoinsComponent } from './components/dashboard/user-details/coins/coins.
     NavbarComponent,
     GraphComponent,
     RatesComponent,
-    DashboardComponent,
-    TotalAssetsComponent,
-    TradeHistoryComponent,
-    UserDetailsComponent,
     SlidebarComponent,
     PieChartComponent,
-    CoinsComponent
     // RateChartComponent
   ],
   imports: [
@@ -77,7 +66,7 @@ import { CoinsComponent } from './components/dashboard/user-details/coins/coins.
     ChartsModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [AuthService, TosterService, AuthGuard, GraphComponent, ExchangeComponent, DashboardComponent],
+  providers: [AuthService, TosterService, AuthGuard, GraphComponent, ExchangeComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

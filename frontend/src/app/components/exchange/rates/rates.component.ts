@@ -8,42 +8,35 @@ import { ExchangeComponent } from '../exchange.component';
   templateUrl: './rates.component.html',
   styleUrls: ['./rates.component.scss']
 })
-export class RatesComponent implements OnInit
-{
-  show:boolean = false;
-  rates:any;
+export class RatesComponent implements OnInit {
+  show: boolean = false;
+  rates: any;
   alpha;
-  bitcoin:any;
+  bitcoin: any;
 
-  constructor(private socketService: SocketService, private graphComponent:GraphComponent, private exchangeComponent:ExchangeComponent) { }
+  constructor(private socketService: SocketService, private graphComponent: GraphComponent, private exchangeComponent: ExchangeComponent) { }
 
-  prices(crypto)
-  {
+  prices(crypto) {
     this.socketService.checkPrice(crypto);
   }
 
-  coin(cryptos)
-  {
+  coin(cryptos) {
     this.graphComponent.chart(cryptos);
     this.exchangeComponent.coins(cryptos);
     this.exchangeComponent.prices(cryptos);
   }
 
-  ngOnInit()
-  {
-    this.show=false;
-    setTimeout(() =>
-    {
-      this.prices("XRPBTC");
-    }, 500);
-
-    this.socketService.getPrice().subscribe(data =>
-    {
-      // console.log(data);
-      this.alpha=data;
-      this.rates=this.alpha.tickers;
-      this.show=true;
+  ngOnInit() {
+    this.show = false;
+    this.socketService.miniTicker().subscribe(data => {
+      this.rates = data['prices'];
+      this.show = true;
     });
+    // this.socketService.getPrice().subscribe(data => {
+    //   // console.log(data);
+    //   this.alpha = data;
+    //   this.rates = this.alpha.tickers;
+    //   this.show = true;
+    // });
   }
-
 }

@@ -1,418 +1,297 @@
-
-  <div id="wrapper">
-    <app-navbar></app-navbar>
-    <main>
-      <section class="graph-section">
-        <div class="container">
-          <div class="row">
-            <!-- left tab starts -->
-            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 left-side-col">
-              <!-- tabs starts -->
-              <br>
-              <!-- Nav tabs -->
-              <app-rates></app-rates>
+<div id="wrapper">
+  <app-navbar></app-navbar>
+  <main>
+    <section class="graph-section">
+      <div class="container">
+        <div class="row">
+          <!-- left tab starts -->
+          <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 left-side-col">
+            <!-- tabs starts -->
+            <br>
+            <!-- Nav tabs -->
+            <app-rates></app-rates>
+          </div>
+          <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 right-side-col">
+            <div id="tradingview_8e6fe" style="background:#272935;height:60vh;">
+              <app-graph></app-graph>
             </div>
-            <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 right-side-col">
-              <div id="tradingview_8e6fe" style="background:#272935;height:60vh;">
-                <app-graph></app-graph>
-              </div>
-              <div class="row">
-                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                  <div id="buy-sell-ltc">
-                    <div>
-                      <!-- <ng-flash-message></ng-flash-message> -->
-                      <div class="buy-sell-ltc">
-                        <div class="trade-content">
-                          <div class="trade buyIn">
-                            <h3 class="greenFont">Buy {{coinz}}</h3>
-                            <form [formGroup]="buy" (submit)="onSubmitBuy()">
-                              <ul>
-                                <li class="input-text">
-                                  <div [ngClass]="{'has-error': (buy.controls.price.errors && buy.controls.price.dirty), 'has-success': !buy.controls.price.errors}">
-                                    <label for="price">
-                                      <input name="price" type="text" maxlength="14" placeholder="Price" autocomplete="off" formControlName="price" value="{{prize}}" [(ngModel)]="p1">
-                                      <span class="unit">USDT</span>
-                                    </label>
-                                  </div>
-                                  <p class="refPrice">≈$0.0000</p>
-                                </li>
-                                <li class="input-text">
-                                  <div [ngClass]="{'has-error': (buy.controls.quantity.errors && buy.controls.quantity.dirty), 'has-success': !buy.controls.quantity.errors}">
-                                    <label for="quantity">
-                                      <input name="quantity" type="text" maxlength="14" autocomplete="off" placeholder="Quantity" formControlName="quantity" [(ngModel)]="a1">
-                                      <span class="unit">{{coinz}}</span>
-                                    </label>
-                                  </div>
-                                </li>
-                                <li class="label position">
-                                  <span class="quarter">1/4</span>
-                                  <span class="quarter">1/2</span>
-                                  <span class="quarter">All</span>
-                                </li>
-                                <li class="label trans">
-                                  <span class="trans-tit">Available</span>
-                                  <span class="trans-cont">{{bitcoin | number:'1.1-8'}} BTC</span>
-                                </li>
-                                <li class="label trans">
-                                  <span class="trans-tit">Amount</span>
-                                  <span class="trans-cont">{{p1*a1}} BTC</span>
-                                </li>
-                              </ul>
-                              <button [disabled]="!buy.valid" type="submit" class="btn btn-success waves-light col-12">
-                                <span>Buy {{coinz}}</span>
-                              </button>
-                            </form>
-                          </div>
-                          <div class="trade buyOut">
-                            <h3 class="redFont">Sell {{coinz}}</h3>
-                            <form [formGroup]="sell" (submit)="onSubmitSell()">
-                              <ul>
-                                <li class="input-text">
-                                  <label for="price1">
-                                    <div class="inputBox">
-                                      <input name="price1" type="text" maxlength="14" placeholder="Price" formControlName="price1" autocomplete="off" value="{{prize}}" [(ngModel)]="p2" >
-                                    </div>
+            <div class="row">
+              <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                <div id="buy-sell-ltc">
+                  <div>
+                    <!-- <ng-flash-message></ng-flash-message> -->
+                    <div class="buy-sell-ltc">
+                      <div class="trade-content">
+                        <div class="trade buyIn">
+                          <h3 class="greenFont">Buy {{coinz}}</h3>
+                          <form [formGroup]="buy" (submit)="onSubmitBuy()">
+                            <ul>
+                              <li class="input-text">
+                                <div
+                                  [ngClass]="{'has-error': (buy.controls.price.errors && buy.controls.price.dirty), 'has-success': !buy.controls.price.errors}">
+                                  <label for="price">
+                                    <input name="price" type="text" maxlength="14" placeholder="Price"
+                                      autocomplete="off" formControlName="price" value="{{prize}}" [(ngModel)]="p1">
                                     <span class="unit">USDT</span>
                                   </label>
-                                  <p class="refPrice">≈$0.0000</p>
-                                </li>
-                                <li class="input-text">
-                                  <label for="quantity1">
-                                    <input name="quantity1" type="text" maxlength="14" placeholder="Quantity " formControlName="quantity1" autocomplete="off" [(ngModel)]="a2">
+                                </div>
+                                <p class="refPrice">≈$0.0000</p>
+                              </li>
+                              <li class="input-text">
+                                <div
+                                  [ngClass]="{'has-error': (buy.controls.quantity.errors && buy.controls.quantity.dirty), 'has-success': !buy.controls.quantity.errors}">
+                                  <label for="quantity">
+                                    <input name="quantity" type="text" maxlength="14" autocomplete="off"
+                                      placeholder="Quantity" formControlName="quantity" [(ngModel)]="a1">
                                     <span class="unit">{{coinz}}</span>
                                   </label>
-                                </li>
-                                <li class="label position">
-                                  <span class="quarter">1/4</span>
-                                  <span class="quarter">1/2</span>
-                                  <span class="quarter">All</span>
-                                </li>
-                                <li class="label trans">
-                                  <span class="trans-tit">Available</span>
-                                  <span class="trans-cont">{{altcoin | number}} {{coinz}}</span>
-                                </li>
-                                <li class="label trans">
-                                  <span class="trans-tit">Amount</span>
-                                  <span class="trans-cont">{{p1*a2}} BTC</span>
-                                </li>
-                              </ul>
-                              <button [disabled]="!sell.valid" type="submit" class="btn btn-danger waves-light col-12">
-                                <span>Sell {{coinz}}</span>
-                              </button>
-                            </form>
-                          </div>
+                                </div>
+                              </li>
+                              <li class="label position">
+                                <span class="quarter">1/4</span>
+                                <span class="quarter">1/2</span>
+                                <span class="quarter">All</span>
+                              </li>
+                              <li class="label trans">
+                                <span class="trans-tit">Available</span>
+                                <span class="trans-cont">{{bitcoin | number:'1.1-8'}} BTC</span>
+                              </li>
+                              <li class="label trans">
+                                <span class="trans-tit">Amount</span>
+                                <span class="trans-cont">{{p1*a1}} BTC</span>
+                              </li>
+                            </ul>
+                            <button [disabled]="!buy.valid" type="submit" class="btn btn-success waves-light col-12">
+                              <span>Buy {{coinz}}</span>
+                            </button>
+                          </form>
+                        </div>
+                        <div class="trade buyOut">
+                          <h3 class="redFont">Sell {{coinz}}</h3>
+                          <form [formGroup]="sell" (submit)="onSubmitSell()">
+                            <ul>
+                              <li class="input-text">
+                                <label for="price1">
+                                  <div class="inputBox">
+                                    <input name="price1" type="text" maxlength="14" placeholder="Price"
+                                      formControlName="price1" autocomplete="off" value="{{prize}}" [(ngModel)]="p2">
+                                  </div>
+                                  <span class="unit">USDT</span>
+                                </label>
+                                <p class="refPrice">≈$0.0000</p>
+                              </li>
+                              <li class="input-text">
+                                <label for="quantity1">
+                                  <input name="quantity1" type="text" maxlength="14" placeholder="Quantity "
+                                    formControlName="quantity1" autocomplete="off" [(ngModel)]="a2">
+                                  <span class="unit">{{coinz}}</span>
+                                </label>
+                              </li>
+                              <li class="label position">
+                                <span class="quarter">1/4</span>
+                                <span class="quarter">1/2</span>
+                                <span class="quarter">All</span>
+                              </li>
+                              <li class="label trans">
+                                <span class="trans-tit">Available</span>
+                                <span class="trans-cont">{{altcoin | number}} {{coinz}}</span>
+                              </li>
+                              <li class="label trans">
+                                <span class="trans-tit">Amount</span>
+                                <span class="trans-cont">{{p1*a2}} BTC</span>
+                              </li>
+                            </ul>
+                            <button [disabled]="!sell.valid" type="submit" class="btn btn-danger waves-light col-12">
+                              <span>Sell {{coinz}}</span>
+                            </button>
+                          </form>
                         </div>
                       </div>
-                      <div>
-                        <main>
-                          <div id="kyc">
-                            <div tabindex="-1" class="vodal" style="animation-duration: 300ms; display: none;">
-                              <div class="vodal-mask"></div>
-                              <div class="vodal-dialog" style="width: 440px; height: 260px; animation-duration: 300ms; display: none;">
-                                <span class="vodal-close"></span>
-                                <header class="vodal-title">Settings</header>
-                                <div class="content">
-                                  <p class="lists-tit">Please complete the following settings first:</p>
-                                  <div class="btn">Settings</div>
-                                </div>
+                    </div>
+                    <div>
+                      <main>
+                        <div id="kyc">
+                          <div tabindex="-1" class="vodal" style="animation-duration: 300ms; display: none;">
+                            <div class="vodal-mask"></div>
+                            <div class="vodal-dialog"
+                              style="width: 440px; height: 260px; animation-duration: 300ms; display: none;">
+                              <span class="vodal-close"></span>
+                              <header class="vodal-title">Settings</header>
+                              <div class="content">
+                                <p class="lists-tit">Please complete the following settings first:</p>
+                                <div class="btn">Settings</div>
                               </div>
                             </div>
                           </div>
-                        </main>
-                      </div>
+                        </div>
+                      </main>
                     </div>
                   </div>
                 </div>
-                <!-- buy-sell-ltc ends -->
-                <!-- order book starts -->
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 order-book-container">
-                  <div id="order-book">
-                    <div data-v-4d4817b6="">
-                      <div class="order-book-cont">
-                        <dl>
-                          <dt>
-                            <div class="inner">
-                              <span class="layer"></span>
-                              <span data-v-55341d60="" class="price">Price</span>
-                              <span data-v-55341d60="" class="amount">Quantity</span>
-                            </div>
-                          </dt>
-                          <dd>
-                            <div class="inner mt-1" *ngFor="let bid of bidsasks">
-                              <span class="layer">Ask</span>
-                              <span class="price"><font style="color:#ff2d2d;">{{bid.askPrice}}</font></span>
-                              <span class="amount">{{bid.askQty | number}}</span>
-                            </div>
-                          </dd>
-                        </dl>
-                        <div class="average">
-                          73.62
-                          <span class="refPrice">≈$73.6200</span>
-                        </div>
-                        <dl>
+              </div>
+              <!-- buy-sell-ltc ends -->
+              <!-- order book starts -->
+              <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 order-book-container">
+                <div id="order-book">
+                  <div data-v-4d4817b6="">
+                    <div class="order-book-cont">
+                      <dl>
+                        <dt>
+                          <div class="inner">
+                            <span class="layer"></span>
+                            <span data-v-55341d60="" class="price">Price</span>
+                            <span data-v-55341d60="" class="amount">Quantity</span>
+                          </div>
+                        </dt>
+                        <dd>
+                          <div class="inner mt-1" *ngFor="let bid of bidsasks">
+                            <span class="layer">Ask</span>
+                            <span class="price">
+                              <font style="color:#ff2d2d;">{{bid.askPrice}}</font>
+                            </span>
+                            <span class="amount">{{bid.askQty | number}}</span>
+                          </div>
+                        </dd>
+                      </dl>
+                      <div class="average">
+                        73.62
+                        <span class="refPrice">≈$73.6200</span>
+                      </div>
+                      <dl>
                         <dd>
                           <div class="inner mt-1" *ngFor="let bid of bidsasks">
                             <span class="layer">Bid</span>
-                            <span class="price"><font style="color:#11c40d;">{{bid.bidPrice}}</font></span>
+                            <span class="price">
+                              <font style="color:#11c40d;">{{bid.bidPrice}}</font>
+                            </span>
                             <span class="amount">{{bid.bidQty | number}}</span>
                           </div>
                         </dd>
-                        </dl>
-                      </div>
+                      </dl>
                     </div>
                   </div>
                 </div>
-                <!-- order book ends -->
               </div>
-              <!-- right-side-bottom ends -->
+              <!-- order book ends -->
             </div>
-            <!-- right tab ends -->
+            <!-- right-side-bottom ends -->
           </div>
+          <!-- right tab ends -->
         </div>
-      </section>
-      <!-- second-section starts -->
-      <section class="second-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 pdding-lft-0">
-              <div class=" left-side-col">
-                <br>
-                <mat-tab-group>
-                  <mat-tab label="Open Orders">
-                    <ng-template matTabContent>
-                      <table class=" table table-hover white-text">
-                        <thead>
-                          <tr>
-                            <th style="width:20%;">Coin</th>
-                            <th style="width:20%;">Type</th>
-                            <th style="width:20%;">Price</th>
-                            <th style="width:20%;">Ammount</th>
-                            <th style="width:20%;">Total</th>
-                            <th style="width:20%;">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let trade of unfilled">
-                            <td scope="row">{{trade.status.symbol}}</td>
-                            <td>{{trade.status.side}}</td>
-                            <td>{{trade.status.price}}</td>
-                            <td>{{trade.status.origQty}}</td>
-                            <td>{{trade.status.price*trade.status.origQty}}</td>
-                            <td>UNFILLED</td>
-                            <td>
-                                <button class="btn btn-danger" (click)="cancelone(trade.status.orderId,trade.status.symbol)"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="6" class="text-center" *ngIf="unfilled?.length == 0">
-                              You have no Open Orders !!
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </ng-template>
-                  </mat-tab>
-                  <mat-tab label="Closed Orders">
-                    <ng-template matTabContent>
-                      <table class="col-12 table table-hover white-text">
-                        <thead>
-                          <tr>
-                            <th style="width:25%">Coin</th>
-                            <th style="width:25%">Type</th>
-                            <th style="width:25%">Price</th>
-                            <th style="width:25%">Ammount</th>
-                            <th style="width:25%">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let trade of filled">
-                            <td scope="row">{{trade.status.symbol}}</td>
-                            <td>{{trade.status.side}}</td>
-                            <td>{{trade.status.price}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
-                            <td>{{trade.status.origQty | number}} &nbsp;<em style="color:#919499;font-size:12px;">{{trade.status.symbol}}</em></td>
-                            <td>{{(trade.status.origQty*trade.status.price) | number:'1.1-8'}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
-                          </tr>
-                          <tr>
-                            <td colspan="6" class="text-center" *ngIf="filled?.length == 0">
-                              You have no Closed Orders !!
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </ng-template>
-                  </mat-tab>
-                </mat-tab-group>
-              </div>
-            </div>
-            <!-- market trades starts -->
-            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 pdding-lft-0">
-              <div id="trades-wrap">
-                <div data-v-4d4817b6="" class="tradesWrap">
-                  <h3>Market Trades</h3>
-                  <dl class="dealInfo">
-                    <dt>
-                      <div class="inner">
-                        <span>Type</span>
-                        <span class="price">Price</span>
-                        <span class="amount">Quantity</span>
-                      </div>
-                    </dt>
-                    <div>
-                      <dd>
-                        <div class="inner mt-2" *ngFor="let mark of market">
-                          <span><font *ngIf="mark.maker" style="color:#ff2d2d;">Sell</font><font *ngIf="!mark.maker" style="color:#11c40d;">Buy</font></span>
-                          <span class="price">{{mark.price}}</span>
-                          <span class="amount">
-                            <i></i>{{mark.quantity | number}}</span>
-                        </div>
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
-              </div>
-            </div>
-            <!-- market trades ends -->
-          </div>
-        </div>
-      </section>
-      <!-- second-section ends -->
-      <!-- coine detail setion starts -->
-      <section class="coine-detail-sec">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 pdding-lft-0">
-              <div id="coin-detail">
-                <div data-v-4d4817b6="" class="coinDetail">
-                  <ul class="coinDetailCon">
-                    <li>
-                      <span>Coin Basics</span>
-                    </li>
-                    <div class="ConText">
-                      <div>-</div>
-                      <p class="text">-</p>
-                    </div>
-                    <li>
-                      <div>
-                        <span>Issue Time</span>
-                        <span>-</span>
-                      </div>
-                      <div>
-                        <span>Token Price</span>
-                        <span>-</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div>
-                        <span>Circulation</span>
-                        <span>-</span>
-                      </div>
-                      <div>
-                        <span>Total Amount</span>
-                        <span>-</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div>
-                        <span>White Paper</span>
-                        <a href="-" target="_blank">-</a>
-                      </div>
-                      <div>
-                        <span>Block Explorer</span>
-                        <a href="-" target="_blank">-</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div>
-                        <span>Official Website</span>
-                        <a href="-" target="_blank">-</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- coine detail section ends -->
-    </main>
-    <!-- footer starts -->
-    <!-- <footer id="footer">
+      </div>
+    </section>
+    <!-- second-section starts -->
+    <section class="second-section">
       <div class="container">
         <div class="row">
-          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 footer-left-side">
-            <img src="../../../assets/pic/logo.png" alt="footer-logo" width="200px">
-            <p>A secure and trustworthy crypto assets exchange</p>
-            <p></p>
-            <p>© BP Crypto Limited</p>
-            <p>1 Coleman Street , The Adelphi, Singapore (179803)</p>
+          <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 pdding-lft-0">
+            <div class=" left-side-col">
+              <br>
+              <mat-tab-group>
+                <mat-tab label="Open Orders">
+                  <ng-template matTabContent>
+                    <table class=" table table-hover white-text">
+                      <thead>
+                        <tr>
+                          <th style="width:20%;">Coin</th>
+                          <th style="width:20%;">Type</th>
+                          <th style="width:20%;">Price</th>
+                          <th style="width:20%;">Ammount</th>
+                          <th style="width:20%;">Total</th>
+                          <th style="width:20%;">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let trade of unfilled">
+                          <td scope="row">{{trade.status.symbol}}</td>
+                          <td>{{trade.status.side}}</td>
+                          <td>{{trade.status.price}}</td>
+                          <td>{{trade.status.origQty}}</td>
+                          <td>{{trade.status.price*trade.status.origQty}}</td>
+                          <td>UNFILLED</td>
+                          <td>
+                            <button class="btn btn-danger"
+                              (click)="cancelone(trade.status.orderId,trade.status.symbol)"><span
+                                class="glyphicon glyphicon-trash"></span></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="6" class="text-center" *ngIf="unfilled?.length == 0">
+                            You have no Open Orders !!
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </ng-template>
+                </mat-tab>
+                <mat-tab label="Closed Orders">
+                  <ng-template matTabContent>
+                    <table class="col-12 table table-hover white-text">
+                      <thead>
+                        <tr>
+                          <th style="width:25%">Coin</th>
+                          <th style="width:25%">Type</th>
+                          <th style="width:25%">Price</th>
+                          <th style="width:25%">Ammount</th>
+                          <th style="width:25%">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let trade of filled">
+                          <td scope="row">{{trade.status.symbol}}</td>
+                          <td>{{trade.status.side}}</td>
+                          <td>{{trade.status.price}} &nbsp;<em style="color:#919499;font-size:12px;">BTC</em></td>
+                          <td>{{trade.status.origQty | number}} &nbsp;<em
+                              style="color:#919499;font-size:12px;">{{trade.status.symbol}}</em></td>
+                          <td>{{(trade.status.origQty*trade.status.price) | number:'1.1-8'}} &nbsp;<em
+                              style="color:#919499;font-size:12px;">BTC</em></td>
+                        </tr>
+                        <tr>
+                          <td colspan="6" class="text-center" *ngIf="filled?.length == 0">
+                            You have no Closed Orders !!
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </ng-template>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
           </div>
-          <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 footer-right-side">
-            <div class="right-content">
-              <ul>
-                <h5>Partner</h5>
-                <li>
-                  <a href="www.google.com">Google.com</a>
-                </li>
-              </ul>
-              <ul>
-                <h5>Legal</h5>
-                <li>
-                  <a href="javascript:void(0);">Terms & Conditions</a>
-                </li>
-                <li>
-                  <a href="javascript:void(0);">API DOcs</a>
-                </li>
-                <li>
-                  <a href="javascript:void(0);">Apply to list</a>
-                </li>
-              </ul>
-              <ul>
-                <h5>Help</h5>
-                <li>
-                  <a href="javascript:void(0);">Announcement</a>
-                </li>
-                <li>
-                  <a href="javascript:void(0);">Fees</a>
-                </li>
-                <li>
-                  <a href="javascript:void(0);">Security Funds</a>
-                </li>
-              </ul>
-              <ul>
-                <h5>Contact</h5>
-                <li>Support :
-                  <a href="javascript:void(0);">Support@abc.com</a>
-                </li>
-                <li>Listing Application :
-                  <a href="javascript:void(0);">listing@abc.com</a>
-                </li>
-                <li>Twitter :
-                  <a href="javascript:void(0);">twitter@abc.com</a>
-                </li>
-              </ul>
+          <!-- market trades starts -->
+          <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 pdding-lft-0">
+            <div id="trades-wrap">
+              <div data-v-4d4817b6="" class="tradesWrap">
+                <h3>Market Trades</h3>
+                <dl class="dealInfo">
+                  <dt>
+                    <div class="inner">
+                      <span>Type</span>
+                      <span class="price">Price</span>
+                      <span class="amount">Quantity</span>
+                    </div>
+                  </dt>
+                  <div>
+                    <dd>
+                      <div class="inner mt-2" *ngFor="let mark of market">
+                        <span>
+                          <font *ngIf="mark.maker" style="color:#ff2d2d;">Sell</font>
+                          <font *ngIf="!mark.maker" style="color:#11c40d;">Buy</font>
+                        </span>
+                        <span class="price">{{mark.price}}</span>
+                        <span class="amount">
+                          <i></i>{{mark.quantity | number}}</span>
+                      </div>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
             </div>
-          </div> -->
-          <!-- footer socail -->
-          <!-- <div id="social_icon_footer">
-            <div class="text-center center-block">
-              <a href="javascript:void(0);">
-                <i id="social-fb" class="fa fa-facebook-square fa-3x social" style="color:white;"></i>
-              </a>
-              <a href="javascript:void(0);">
-                <i id="social-tw" class="fa fa-twitter-square fa-3x social" style="color:white;"></i>
-              </a>
-              <a href="javascript:void(0);">
-                <i id="social-gp" class="fa fa-google-plus-square fa-3x social" style="color:white;"></i>
-              </a>
-              <a>
-                <i id="social-em" class="fa fa-envelope-square fa-3x social" style="color:white;"></i>
-              </a>
-            </div>
-          </div> -->
-          <!-- footer socail ends -->
-        <!-- </div>
+          </div>
+          <!-- market trades ends -->
+        </div>
       </div>
-    </footer> -->
-    <!-- footer ends -->
-  </div>
+    </section>
+    <!-- second-section ends -->
+  </main>
+</div>
