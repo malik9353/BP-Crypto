@@ -10,34 +10,27 @@ const binance = require('node-binance-api');
 var coins = require('../models/coin.js');
 
 binance.options(
-{
-  APIKEY: process.env.apiKeys,
-  APISECRET: process.env.apiSecrets,
-  useServerTime: true,
-  test: false
-});
+  {
+    APIKEY: process.env.apiKeys,
+    APISECRET: process.env.apiSecrets,
+    useServerTime: true,
+    test: false
+  });
 
-exports.homePage = function (req, res)
-{
+exports.homePage = function (req, res) {
   res.sendFile(__dirname + '/index.html');
 }
 
-exports.profile=function (req,res)
-{
-  User.findOne({ _id: req.params.id }).exec(function(err, user)
-  {
-    if (err)
-    {
+exports.profile = function (req, res) {
+  User.findOne({ _id: req.params.id }).exec(function (err, user) {
+    if (err) {
       res.json({ success: "false", message: err });
     }
-    else
-    {
-      if (!user)
-      {
+    else {
+      if (!user) {
         res.json({ success: "false", message: 'Invalid Email !!!' });
       }
-      else
-      {
+      else {
         res.json({ success: true, user: user });
       }
     }
@@ -46,38 +39,27 @@ exports.profile=function (req,res)
 
 
 
-exports.changepass = function(req,res)
-{
-  User.findOne({ _id: req.body.id }, (err, user) =>
-  {
-    if (err)
-    {
+exports.changepass = function (req, res) {
+  User.findOne({ _id: req.body.id }, (err, user) => {
+    if (err) {
       res.json({ success: "false", message: 'Not a valid user id' });
     }
-    else
-    {
-      if (!user)
-      {
+    else {
+      if (!user) {
         res.json({ success: "false", message: 'User id was not found.' });
       }
-      else
-      {
-        user.password=req.body.password;
-        user.save((err) =>
-        {
-          if (err)
-          {
-            if (err.errors)
-            {
+      else {
+        user.password = req.body.password;
+        user.save((err) => {
+          if (err) {
+            if (err.errors) {
               res.json({ success: "false", message: 'Please ensure form is filled out properly' });
             }
-            else
-            {
+            else {
               res.json({ success: "false", message: err });
             }
           }
-          else
-          {
+          else {
             res.json({ success: "true", message: "User Updated !!!" });
           }
         });
@@ -86,28 +68,20 @@ exports.changepass = function(req,res)
   });
 }
 
-exports.checkname=function (req,res)
-{
-  if (!req.params.username)
-  {
+exports.checkname = function (req, res) {
+  if (!req.params.username) {
     res.json({ success: "false", message: 'Username was not provided' });
   }
-  else
-  {
-    User.findOne({ username: req.params.username }, (err, user) =>
-    {
-      if (err)
-      {
+  else {
+    User.findOne({ username: req.params.username }, (err, user) => {
+      if (err) {
         res.json({ success: "false", message: err });
       }
-      else
-      {
-        if (user)
-        {
+      else {
+        if (user) {
           res.json({ success: "false", message: 'Username is already taken' });
         }
-        else
-        {
+        else {
           res.json({ success: true, message: 'Username is available' });
         }
       }
@@ -116,28 +90,20 @@ exports.checkname=function (req,res)
 };
 
 
-exports.checkemail=function (req,res)
-{
-  if (!req.params.email)
-  {
+exports.checkemail = function (req, res) {
+  if (!req.params.email) {
     res.json({ success: "false", message: 'E-mail was not provided' });
   }
-  else
-  {
-    User.findOne({ email: req.params.email }, (err, user) =>
-    {
-      if (err)
-      {
+  else {
+    User.findOne({ email: req.params.email }, (err, user) => {
+      if (err) {
         res.json({ success: "false", message: err });
       }
-      else
-      {
-        if (user)
-        {
+      else {
+        if (user) {
           res.json({ success: "false", message: 'E-mail is already taken' });
         }
-        else
-        {
+        else {
           res.send({ success: true, message: 'E-mail is available' });
         }
       }
@@ -146,76 +112,55 @@ exports.checkemail=function (req,res)
 };
 
 
-exports.register = function (req, res)
-{
-  console.log("Register krna ki koshsish");
-  if (!req.body.email)
-  {
+exports.register = function (req, res) {
+  if (!req.body.email) {
     res.json({ success: "false", message: 'You must provide an e-mail' });
   }
-  else
-  {
-    if (!req.body.username)
-    {
+  else {
+    if (!req.body.username) {
       res.json({ success: "false", message: 'You must provide a username' });
     }
-    else
-    {
-      if (!req.body.password)
-      {
+    else {
+      if (!req.body.password) {
         res.json({ success: "false", message: 'You must provide a password' });
       }
-      else
-      {
+      else {
         let user = new User(
-        {
-          email: req.body.email.toLowerCase(),
-          username: req.body.username.toLowerCase(),
-          password: req.body.password
-        });
-        user.save((err) =>
-        {
-          if (err)
           {
-            if (err.code === 11000)
-            {
+            email: req.body.email.toLowerCase(),
+            username: req.body.username.toLowerCase(),
+            password: req.body.password
+          });
+        user.save((err) => {
+          if (err) {
+            if (err.code === 11000) {
               res.json({ success: "false", message: 'Username or E-mail already exists' });
             }
-            else
-            {
-              if (err.errors)
-              {
-                if (err.errors.email)
-                {
+            else {
+              if (err.errors) {
+                if (err.errors.email) {
                   res.json({ success: "false", message: err.errors.email.message });
                 }
-                else
-                {
-                  if (err.errors.username)
-                  {
+                else {
+                  if (err.errors.username) {
                     res.json({ success: "false", message: err.errors.username.message });
                   }
-                  else
-                  {
-                    if (err.errors.password)
-                    {
+                  else {
+                    if (err.errors.password) {
                       res.json({ success: "false", message: err.errors.password.message });
                     }
-                    else
-                    {
+                    else {
                       res.json({ success: "false", message: err });
                     }
                   }
                 }
               }
-              else
-              {
+              else {
                 res.json({ success: "false", message: 'Could not save user. Error: ', err });
               }
             }
           }
-          else
-          {
+          else {
             res.json({ success: true, message: 'Account registered!' });
           }
         });
@@ -225,68 +170,53 @@ exports.register = function (req, res)
 };
 
 
-exports.authenticate = function (req, res)
-{
-  if (req.body.email != null && req.body.email != "")
-  {
-    User.findOne({ email: req.body.email , isDeleted:false}).select('+password').exec(function (err, user)
-    {
-      if (err)
-      {
+exports.authenticate = function (req, res) {
+  if (req.body.email != null && req.body.email != "") {
+    User.findOne({ email: req.body.email, isDeleted: false }).select('+password').exec(function (err, user) {
+      if (err) {
         throw err;
       }
-      else if (user)
-      {
-        if (user.comparePassword(req.body.password, function (err, isMatch)
-        {
-          if (isMatch && !err)
-          {
+      else if (user) {
+        if (user.comparePassword(req.body.password, function (err, isMatch) {
+          if (isMatch && !err) {
             user.password = undefined;
             var token = jwt.sign({ user: user }, process.env.jwtsecret, { expiresIn: 1000000 });
-            User.findOne({_id:user._id}).then(function(found)
-            {
-              coins.find({user_id:user._id}).exec(function(error,coinResult){
-                if(error){
-                  res.status(500).send({error:error});
-                }else{
-                    res.status('200').send({ success: "true", token: 'JWT ' + token, user: found, id: found._id, message: 'Login Sucessfuly !!',coin:coinResult, isAdmin:found.isAdmin});
+            User.findOne({ _id: user._id }).then(function (found) {
+              coins.find({ user_id: user._id }).exec(function (error, coinResult) {
+                if (error) {
+                  res.status(500).send({ error: error });
+                } else {
+                  res.status('200').send({ success: "true", token: 'JWT ' + token, user: found, id: found._id, message: 'Login Sucessfuly !!', coin: coinResult, isAdmin: found.isAdmin });
                 }
               })
             })
           }
-          else
-          {
+          else {
             res.json({ success: "false", message: "Password did'nt matched !!" });
           }
         }));
       }
-      else
-      {
+      else {
         res.json({ success: "false", message: 'Invalid Email !!!' });
       }
     });
   }
-  else
-  {
+  else {
     res.json({ success: "false", message: "Perameters Missing" });
   }
 }
 
 
-exports.edit = function (req, res)
-{
+exports.edit = function (req, res) {
   User.findOne({ _id: req.user._id }).select('+password').exec(function (error, user) {
     user.name = req.body.name ? req.body.name : user.name;
     user.email = req.body.email ? req.body.email : user.email;
     user.password = req.body.password ? req.body.password : user.password;
-    user.save(function (error, user)
-    {
-      if (error)
-      {
+    user.save(function (error, user) {
+      if (error) {
         res.status('500').send({ error: error })
       }
-      else
-      {
+      else {
         res.status('200').send({ message: 'updated' })
       }
     });
@@ -294,81 +224,63 @@ exports.edit = function (req, res)
 }
 
 
-exports.getAllUserList = function(req,res){
-  User.find({}).exec(function(error,result){
-    if(error){
-      res.status(500).send({error:error});
-    }else{
-      res.status(200).send({result:result});
+exports.getAllUserList = function (req, res) {
+  User.find({}).exec(function (error, result) {
+    if (error) {
+      res.status(500).send({ error: error });
+    } else {
+      res.status(200).send({ result: result });
     }
   })
 }
 
-exports.userData = function(req,res)
-{
-  var data=[];
-  User.find({}).exec(function(error,result)
-  {
-    if(error)
-    {
-      res.status(500).send({error:error});
+exports.userData = function (req, res) {
+  var data = [];
+  User.find({}).exec(function (error, result) {
+    if (error) {
+      res.status(500).send({ error: error });
     }
-    else
-    {
-      res.status(200).send({result:result});
+    else {
+      res.status(200).send({ result: result });
     }
   })
 }
-exports.userCoins = function(req,res)
-{
-  User.find({_id:req.params.id}).exec(function(error,result)
-  {
-    if(error)
-    {
-      res.status(500).send({error:error});
+exports.userCoins = function (req, res) {
+  User.find({ _id: req.params.id }).exec(function (error, result) {
+    if (error) {
+      res.status(500).send({ error: error });
     }
-    else
-    {
-      coins.find({user_id:req.params.id}).populate("user_id").exec(function(error,assets)
-      {
-        if(error)
-        {
-          res.status(500).send({error:error});
+    else {
+      coins.find({ user_id: req.params.id }).populate("user_id").exec(function (error, assets) {
+        if (error) {
+          res.status(500).send({ error: error });
         }
-        else
-        {
-          var coins=[]
-          if(assets.length>0)
-          {
-            for(var j=0; j<assets.length; j++)
-            {
-              coins[j]={ name: assets[j].user_id.username, coinName: assets[j].coinName, ammount: assets[j].amount};
+        else {
+          var coins = []
+          if (assets.length > 0) {
+            for (var j = 0; j < assets.length; j++) {
+              coins[j] = { name: assets[j].user_id.username, coinName: assets[j].coinName, ammount: assets[j].amount };
             }
           }
           console.log(coins);
-          res.status(200).send({coins:coins, user:result});
+          res.status(200).send({ coins: coins, user: result });
         }
       })
     }
   })
 }
 
-exports.getAllUsers = function(req,res)
-{
-  User.find({}).exec(function(error,result)
-  {
-    if(error)
-    {
-      res.status(500).send({error:error});
+exports.getAllUsers = function (req, res) {
+  User.find({}).exec(function (error, result) {
+    if (error) {
+      res.status(500).send({ error: error });
     }
-    else
-    {
+    else {
       var i;
-      for(i=0;i<=result.length;i++)
-      {
+      for (i = 0; i <= result.length; i++) {
         // console.log(i);
       }
-      res.status(200).send({result:i});
+      res.status(200).send({ result: i });
     }
   })
 }
