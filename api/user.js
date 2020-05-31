@@ -37,8 +37,6 @@ exports.profile = function (req, res) {
   });
 }
 
-
-
 exports.changepass = function (req, res) {
   User.findOne({ _id: req.body.id }, (err, user) => {
     if (err) {
@@ -133,36 +131,22 @@ exports.register = function (req, res) {
           });
         user.save((err) => {
           if (err) {
-            if (err.code === 11000) {
-              res.json({ success: "false", message: 'Username or E-mail already exists' });
-            }
+            if (err.code === 11000) res.json({ success: "false", message: 'Username or E-mail already exists' });
             else {
               if (err.errors) {
-                if (err.errors.email) {
-                  res.json({ success: "false", message: err.errors.email.message });
-                }
+                if (err.errors.email) res.json({ success: "false", message: err.errors.email.message });
                 else {
-                  if (err.errors.username) {
-                    res.json({ success: "false", message: err.errors.username.message });
-                  }
+                  if (err.errors.username) res.json({ success: "false", message: err.errors.username.message });
                   else {
-                    if (err.errors.password) {
-                      res.json({ success: "false", message: err.errors.password.message });
-                    }
-                    else {
-                      res.json({ success: "false", message: err });
-                    }
+                    if (err.errors.password) res.json({ success: "false", message: err.errors.password.message });
+                    else res.json({ success: "false", message: err });
                   }
                 }
               }
-              else {
-                res.json({ success: "false", message: 'Could not save user. Error: ', err });
-              }
+              else res.json({ success: "false", message: 'Could not save user. Error: ', err });
             }
           }
-          else {
-            res.json({ success: true, message: 'Account registered!' });
-          }
+          else res.json({ success: true, message: 'Account registered!' });
         });
       }
     }
@@ -183,27 +167,18 @@ exports.authenticate = function (req, res) {
             var token = jwt.sign({ user: user }, process.env.jwtsecret, { expiresIn: 1000000 });
             User.findOne({ _id: user._id }).then(function (found) {
               coins.find({ user_id: user._id }).exec(function (error, coinResult) {
-                if (error) {
-                  res.status(500).send({ error: error });
-                } else {
-                  res.status('200').send({ success: "true", token: 'JWT ' + token, user: found, id: found._id, message: 'Login Sucessfuly !!', coin: coinResult, isAdmin: found.isAdmin });
-                }
+                if (error) res.status(500).send({ error: error });
+                else res.status('200').send({ success: "true", token: 'JWT ' + token, user: found, id: found._id, message: 'Login Sucessfuly !!', coin: coinResult, isAdmin: found.isAdmin, username: found['username'] });
               })
             })
           }
-          else {
-            res.json({ success: "false", message: "Password did'nt matched !!" });
-          }
+          else res.json({ success: "false", message: "Password did'nt matched !!" });
         }));
       }
-      else {
-        res.json({ success: "false", message: 'Invalid Email !!!' });
-      }
+      else res.json({ success: "false", message: 'Invalid Email !!!' });
     });
   }
-  else {
-    res.json({ success: "false", message: "Perameters Missing" });
-  }
+  else res.json({ success: "false", message: "Perameters Missing" });
 }
 
 

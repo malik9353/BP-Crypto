@@ -151,7 +151,7 @@ export class HomeComponent implements OnInit {
       else {
         this.messageClass = 'alert alert-success';
         this.message = this.loginRes.message;
-        this.authService.storeUserData(this.loginRes.token, this.loginRes.user, this.loginRes.id, this.loginRes.isAdmin);
+        this.authService.storeUserData(this.loginRes.token, this.loginRes.user, this.loginRes.id, this.loginRes.isAdmin, this.loginRes.username);
         setTimeout(() => {
           this.router.navigate(['/exchange']);
         }, 500);

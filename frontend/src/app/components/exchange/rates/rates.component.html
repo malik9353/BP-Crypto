@@ -1,40 +1,39 @@
-<span class="form-inline search-bar">
-  <input class="form-control sr-md-4" type="search" placeholder="Search" aria-label="Search">
+<span class="text-center">
+  <h5 class="pb-2"> Cryptocurrencies </h5>
 </span>
 <div class="tab-content left-side-tab">
   <div id="home" class="container tab-pane active">
-    <br>
     <ul>
-      <li (click)="coin('BTC')">
+      <li (click)="coin('BTC')" class="active">
         <a href="javascript:void(0);">
           <span>
-            Bitcoin BTC
+            <img src="../../../../assets/pic/BTC.png" alt="BTC-Image" width="20px">
+            Bitcoin (BTC)
           </span>
           <span class="float-right" *ngIf="show">
-            <font style="color:#7c88a0">{{rates.BTCUSDT}}
-            </font>
+            <font style="color:#7c88a0">{{rates.BTCUSDT}} USDT</font>
           </span>
         </a>
       </li>
       <li (click)="coin('LTC')">
         <a href="javascript:void(0);">
           <span>
-            Litecoin LTC
+            <img src="../../../../assets/pic/LTCBTC.png" alt="BTC-Image" width="20px">
+            Litecoin (LTC)
           </span>
           <span class="float-right" *ngIf="show">
-            <font style="color:#7c88a0">{{rates.LTCUSDT}}
-            </font>
+            <font style="color:#7c88a0">{{rates.LTCUSDT}} USDT</font>
           </span>
         </a>
       </li>
       <li (click)="coin('ETH')">
         <a href="javascript:void(0);">
           <span>
-            Ethereum ETH
+            <img src="../../../../assets/pic/ETHBTC.png" alt="BTC-Image" width="20px">
+            Ethereum (ETH)
           </span>
           <span class="float-right" *ngIf="show">
-            <font style="color:#7c88a0">{{rates.ETHUSDT}}
-            </font>
+            <font style="color:#7c88a0">{{rates.ETHUSDT}} USDT</font>
           </span>
         </a>
       </li>

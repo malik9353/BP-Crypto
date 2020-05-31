@@ -8,8 +8,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit
-{
+export class NavbarComponent implements OnInit {
   hide = true;
   processing = false;
   message;
@@ -20,23 +19,20 @@ export class NavbarComponent implements OnInit
   emailMessage;
   usernameValid;
   usernameMessage;
-  admin=localStorage.getItem('isAdmin');
-  show:boolean = false;
+  username = localStorage.getItem('username');
+  admin = localStorage.getItem('isAdmin');
+  show: boolean = false;
 
-  constructor(public authService:AuthService, private router: Router,private flashMessagesService: FlashMessagesService)
-  {}
+  constructor(public authService: AuthService, private router: Router, private flashMessagesService: FlashMessagesService) { }
 
-  onLogoutClick()
-  {
+  onLogoutClick() {
     this.authService.logout();
     this.router.navigate(['/']);
   }
 
-  ngOnInit()
-  {
-    if(this.admin=="true")
-    {
-      this.show=true;
+  ngOnInit() {
+    if (this.admin == "true") {
+      this.show = true;
     }
   }
 }

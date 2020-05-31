@@ -941,7 +941,7 @@ var GraphComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"form-inline search-bar\">\r\n  <input class=\"form-control sr-md-4\" type=\"search\" placeholder=\"Search\" aria-label=\"Search\">\r\n</span>\r\n<div class=\"tab-content left-side-tab\">\r\n  <div id=\"home\" class=\"container tab-pane active\">\r\n    <br>\r\n    <ul>\r\n      <li (click)=\"coin('BTC')\">\r\n        <a href=\"javascript:void(0);\">\r\n          <span>\r\n            Bitcoin BTC\r\n          </span>\r\n          <span class=\"float-right\" *ngIf=\"show\">\r\n            <font style=\"color:#7c88a0\">{{rates.BTCUSDT}}\r\n            </font>\r\n          </span>\r\n        </a>\r\n      </li>\r\n      <li (click)=\"coin('LTC')\">\r\n        <a href=\"javascript:void(0);\">\r\n          <span>\r\n            Litecoin LTC\r\n          </span>\r\n          <span class=\"float-right\" *ngIf=\"show\">\r\n            <font style=\"color:#7c88a0\">{{rates.LTCUSDT}}\r\n            </font>\r\n          </span>\r\n        </a>\r\n      </li>\r\n      <li (click)=\"coin('ETH')\">\r\n        <a href=\"javascript:void(0);\">\r\n          <span>\r\n            Ethereum ETH\r\n          </span>\r\n          <span class=\"float-right\" *ngIf=\"show\">\r\n            <font style=\"color:#7c88a0\">{{rates.ETHUSDT}}\r\n            </font>\r\n          </span>\r\n        </a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<span class=\"text-center\">\r\n  <h5 class=\"pb-2\"> Cryptocurrencies </h5>\r\n</span>\r\n<div class=\"tab-content left-side-tab\">\r\n  <div id=\"home\" class=\"container tab-pane active\">\r\n    <ul>\r\n      <li (click)=\"coin('BTC')\" class=\"active\">\r\n        <a href=\"javascript:void(0);\">\r\n          <span>\r\n            <img src=\"../../../../assets/pic/BTC.png\" alt=\"BTC-Image\" width=\"20px\">\r\n            Bitcoin (BTC)\r\n          </span>\r\n          <span class=\"float-right\" *ngIf=\"show\">\r\n            <font style=\"color:#7c88a0\">{{rates.BTCUSDT}} USDT</font>\r\n          </span>\r\n        </a>\r\n      </li>\r\n      <li (click)=\"coin('LTC')\">\r\n        <a href=\"javascript:void(0);\">\r\n          <span>\r\n            <img src=\"../../../../assets/pic/LTCBTC.png\" alt=\"BTC-Image\" width=\"20px\">\r\n            Litecoin (LTC)\r\n          </span>\r\n          <span class=\"float-right\" *ngIf=\"show\">\r\n            <font style=\"color:#7c88a0\">{{rates.LTCUSDT}} USDT</font>\r\n          </span>\r\n        </a>\r\n      </li>\r\n      <li (click)=\"coin('ETH')\">\r\n        <a href=\"javascript:void(0);\">\r\n          <span>\r\n            <img src=\"../../../../assets/pic/ETHBTC.png\" alt=\"BTC-Image\" width=\"20px\">\r\n            Ethereum (ETH)\r\n          </span>\r\n          <span class=\"float-right\" *ngIf=\"show\">\r\n            <font style=\"color:#7c88a0\">{{rates.ETHUSDT}} USDT</font>\r\n          </span>\r\n        </a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1208,7 +1208,7 @@ var HomeComponent = /** @class */ (function () {
             else {
                 _this.messageClass = 'alert alert-success';
                 _this.message = _this.loginRes.message;
-                _this.authService.storeUserData(_this.loginRes.token, _this.loginRes.user, _this.loginRes.id, _this.loginRes.isAdmin);
+                _this.authService.storeUserData(_this.loginRes.token, _this.loginRes.user, _this.loginRes.id, _this.loginRes.isAdmin, _this.loginRes.username);
                 setTimeout(function () {
                     _this.router.navigate(['/exchange']);
                 }, 500);
@@ -1248,7 +1248,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"height:56px;\">\r\n  <nav class=\"navbar navbar-expand-md navbar-dark fixed-top\">\r\n    <a class=\"navbar-brand\" routerLink=\"/\">\r\n      <img src=\"../../../assets/home/logo.png\" alt=\"placeholder image\" width=100px>\r\n    </a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbar6\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"navbar-collapse collapse justify-content-stretch\" id=\"navbar6\">\r\n      <ul class=\"navbar-nav\">\r\n        <li *ngIf=\"authService.loggedIn()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\"\r\n            routerLink=\"/exchange\">Exchange</a>\r\n        </li>\r\n      </ul>\r\n      <ul class=\"navbar-nav ml-auto\">\r\n        <li *ngIf=\"authService.loggedIn()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" (click)=\"onLogoutClick()\">Logout</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n</div>"
+module.exports = "<div style=\"height:56px;\">\r\n  <nav class=\"navbar navbar-expand-md navbar-dark fixed-top\">\r\n    <a class=\"navbar-brand\" routerLink=\"/\">\r\n      <img src=\"../../../assets/home/logo.png\" alt=\"placeholder image\" width=100px>\r\n    </a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbar6\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"navbar-collapse collapse justify-content-stretch\" id=\"navbar6\">\r\n      <ul class=\"navbar-nav\">\r\n        <li *ngIf=\"authService.loggedIn()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\"\r\n            routerLink=\"/exchange\">Exchange</a>\r\n        </li>\r\n      </ul>\r\n      <ul class=\"navbar-nav ml-auto\">\r\n        <li class=\"nav-item mr-3\">\r\n          <a class=\"nav-link\" style=\"cursor: default;\">\r\n            <i class=\"fa fa-user\"></i>\r\n            {{username}}\r\n          </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" (click)=\"onLogoutClick()\">\r\n            <i class=\"fa fa-sign-out\"></i>\r\n            Logout\r\n          </a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n</div>"
 
 /***/ }),
 
@@ -1298,6 +1298,7 @@ var NavbarComponent = /** @class */ (function () {
         this.flashMessagesService = flashMessagesService;
         this.hide = true;
         this.processing = false;
+        this.username = localStorage.getItem('username');
         this.admin = localStorage.getItem('isAdmin');
         this.show = false;
     }
@@ -1556,6 +1557,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var AuthService = /** @class */ (function () {
+    // domain = "http://localhost:3001";
     function AuthService(http) {
         this.http = http;
         this.domain = "";
@@ -1589,8 +1591,9 @@ var AuthService = /** @class */ (function () {
         this.user = null;
         localStorage.clear();
     };
-    AuthService.prototype.storeUserData = function (token, user, id, isAdmin) {
+    AuthService.prototype.storeUserData = function (token, user, id, isAdmin, username) {
         localStorage.setItem('id', id);
+        localStorage.setItem('username', username);
         localStorage.setItem('token', token);
         localStorage.setItem('isAdmin', isAdmin);
         localStorage.setItem('user', JSON.stringify(user));
@@ -1700,6 +1703,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var SocketService = /** @class */ (function () {
+    // domain = "http://localhost:3001";
     function SocketService(authService, http) {
         this.authService = authService;
         this.http = http;
@@ -1734,7 +1738,7 @@ var SocketService = /** @class */ (function () {
     SocketService.prototype.getPrice = function () {
         var _this = this;
         var observable = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"](function (observer) {
-            _this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_1__("");
+            _this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_1__("http://localhost:3001");
             _this.socket.on('coin-price', function (data) {
                 observer.next(data);
             });

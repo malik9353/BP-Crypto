@@ -11,6 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SocketService {
   private socket;
   options;
+  // domain = "";
   domain = "http://localhost:3001";
 
   constructor(private authService: AuthService, private http: HttpClient) { }

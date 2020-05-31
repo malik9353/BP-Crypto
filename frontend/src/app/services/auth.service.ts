@@ -10,6 +10,7 @@ export class AuthService {
   options;
   authToken;
   result: any;
+  // domain = "";
   domain = "http://localhost:3001";
 
   constructor(private http: HttpClient) { }
@@ -51,8 +52,9 @@ export class AuthService {
     localStorage.clear();
   }
 
-  storeUserData(token, user, id, isAdmin) {
+  storeUserData(token, user, id, isAdmin, username) {
     localStorage.setItem('id', id);
+    localStorage.setItem('username', username);
     localStorage.setItem('token', token);
     localStorage.setItem('isAdmin', isAdmin);
     localStorage.setItem('user', JSON.stringify(user));
