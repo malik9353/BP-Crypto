@@ -223,8 +223,9 @@ export class ExchangeComponent implements OnInit {
         if (this.bidsasks.length > 5) this.bidsasks.splice(0, 1);
 
         if (this.g == 1) {
-
-          this.prize = this.price.close;
+          this.prize = Number(this.price.close);
+          this.p2 = this.prize;
+          this.p1 = this.prize;
         }
         this.g = 0;
         this.showSpinner = false;
