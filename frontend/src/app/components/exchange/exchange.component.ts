@@ -55,6 +55,7 @@ export class ExchangeComponent implements OnInit {
   sell: FormGroup;
   buy: FormGroup;
   processing = false;
+  prevCoin = 'XRP';
 
   constructor(private formBuilder: FormBuilder, public toster: TosterService, private authService: AuthService, private socketService: SocketService) {
     this.createForm();
@@ -223,9 +224,9 @@ export class ExchangeComponent implements OnInit {
         if (this.bidsasks.length > 5) this.bidsasks.splice(0, 1);
 
         if (this.g == 1) {
-          this.prize = Number(this.price.close);
-          this.p2 = this.prize;
-          this.p1 = this.prize;
+          // this.prize = Number(this.price.close);
+          // this.p2 = this.prize;
+          // this.p1 = this.prize;
         }
         this.g = 0;
         this.showSpinner = false;
@@ -233,9 +234,10 @@ export class ExchangeComponent implements OnInit {
       }
     });
 
-    this.connectionData = this.socketService.getmarket().subscribe(data => {
-      this.market.push(data);
-      if (this.market.length > 15) this.market.splice(0, 1);
+    this.socketService.miniTicker().subscribe(data => {
+      if (this.coinz !== this.prevCoin)
+        this.prize = data['prices'][`${this.coinz}USDT`];
+      this.prevCoin = this.coinz;
     });
 
     this.connectionData1 = this.socketService.miniTicker().subscribe(data => {
@@ -263,14 +265,6 @@ export class ExchangeComponent implements OnInit {
       }
     });
 
-    // this.sub = Observable.interval(5000).subscribe((val) =>
-    // {
-    //   this.tradeHistory();
-    // });
-
-    setTimeout(() => {
-      this.tradeHistory();
-    }, 500);
 
     setTimeout(() => {
       this.prices("ETH");

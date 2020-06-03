@@ -10,8 +10,8 @@ export class AuthService {
   options;
   authToken;
   result: any;
-  // domain = "";
-  domain = "http://localhost:3001";
+  domain = "";
+  // domain = "http://localhost:3001";
 
   constructor(private http: HttpClient) { }
 
