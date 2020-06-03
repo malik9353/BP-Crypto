@@ -23,42 +23,26 @@
                     <div class="buy-sell-ltc">
                       <div class="trade-content">
                         <div class="trade buyIn">
-                          <h3 class="greenFont text-center">Buy {{coinz}}</h3>
+                          <h3 class="greenFont text-center py-3">Buy {{coinz}}</h3>
                           <form [formGroup]="buy" (submit)="onSubmitBuy()">
                             <ul>
-                              <li class="input-text">
-                                <div
-                                  [ngClass]="{'has-error': (buy.controls.price.errors && buy.controls.price.dirty), 'has-success': !buy.controls.price.errors}">
-                                  <label for="price">
-                                    <input name="price" type="text" maxlength="14" placeholder="Price"
-                                      autocomplete="off" formControlName="price" value="{{prize}}" [(ngModel)]="p1">
-                                    <span class="unit">USDT</span>
-                                  </label>
-                                </div>
-                                <!-- <p class="refPrice">≈$0.0000</p> -->
-                              </li>
                               <li class="input-text">
                                 <div
                                   [ngClass]="{'has-error': (buy.controls.quantity.errors && buy.controls.quantity.dirty), 'has-success': !buy.controls.quantity.errors}">
                                   <label for="quantity">
                                     <input name="quantity" type="text" maxlength="14" autocomplete="off"
-                                      placeholder="Quantity" formControlName="quantity" [(ngModel)]="a1">
-                                    <span class="unit">{{coinz}}</span>
+                                      placeholder="Amount" formControlName="quantity" [(ngModel)]="a1">
+                                    <span class="unit">USDT</span>
                                   </label>
                                 </div>
                               </li>
-                              <!-- <li class="label position">
-                                <span class="quarter">1/4</span>
-                                <span class="quarter">1/2</span>
-                                <span class="quarter">All</span>
-                              </li> -->
-                              <li class="label trans">
-                                <span class="trans-tit">Available</span>
-                                <span class="trans-cont">{{bitcoin | number:'1.1-8'}} {{coinz}}</span>
+                              <li class="label trans pt-3">
+                                <span class="trans-tit">Price</span>
+                                <span class="trans-cont">{{prize}} USDT</span>
                               </li>
                               <li class="label trans">
-                                <span class="trans-tit">Amount</span>
-                                <span class="trans-cont">{{(p1*a1) || 0}} USDT</span>
+                                <span class="trans-tit">You Will Receive</span>
+                                <span class="trans-cont">{{((a1/prize) | number:'1.1-8') || 0}} {{coinz}}</span>
                               </li>
                             </ul>
                             <button [disabled]="!buy.valid" type="submit" class="btn btn-success waves-light col-12">
@@ -67,38 +51,23 @@
                           </form>
                         </div>
                         <div class="trade buyOut">
-                          <h3 class="redFont text-center">Sell {{coinz}}</h3>
+                          <h3 class="redFont text-center py-3">Sell {{coinz}}</h3>
                           <form [formGroup]="sell" (submit)="onSubmitSell()">
                             <ul>
                               <li class="input-text">
-                                <label for="price1">
-                                  <div class="inputBox">
-                                    <input name="price1" type="text" maxlength="14" placeholder="Price"
-                                      formControlName="price1" autocomplete="off" value="{{prize}}" [(ngModel)]="p2">
-                                  </div>
-                                  <span class="unit">USDT</span>
-                                </label>
-                                <!-- <p class="refPrice">≈$0.0000</p> -->
-                              </li>
-                              <li class="input-text">
                                 <label for="quantity1">
-                                  <input name="quantity1" type="text" maxlength="14" placeholder="Quantity "
+                                  <input name="quantity1" type="text" maxlength="14" placeholder="Amount"
                                     formControlName="quantity1" autocomplete="off" [(ngModel)]="a2">
                                   <span class="unit">{{coinz}}</span>
                                 </label>
                               </li>
-                              <!-- <li class="label position">
-                                <span class="quarter">1/4</span>
-                                <span class="quarter">1/2</span>
-                                <span class="quarter">All</span>
-                              </li> -->
-                              <li class="label trans">
-                                <span class="trans-tit">Available</span>
-                                <span class="trans-cont">{{altcoin | number}} {{coinz}}</span>
+                              <li class="label trans pt-3">
+                                <span class="trans-tit">Price</span>
+                                <span class="trans-cont">{{prize}} USDT</span>
                               </li>
                               <li class="label trans">
-                                <span class="trans-tit">Amount</span>
-                                <span class="trans-cont">{{(p1*a2) || 0}} USDT</span>
+                                <span class="trans-tit">You Will Receive</span>
+                                <span class="trans-cont">{{((a2*prize) | number:'1.1-8') || 0}} USDT</span>
                               </li>
                             </ul>
                             <button [disabled]="!sell.valid" type="submit" class="btn btn-danger waves-light col-12">

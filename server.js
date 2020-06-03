@@ -57,12 +57,10 @@ binance.options({
 io.on('connection', function (socket) {
   socket.on('coin-price', function (coin) {
     coinname = coin;
-    binance.bookTickers(coin, (error, bidask) => {
-      binance.websockets.prevDay(coin, (error, response) => {
-        if (coin == coinname) {
-          io.sockets.emit("coin-price", { type: 'new-message', open: response.open, high: response.high, low: response.low, close: response.close, volume: response.quoteVolume, symbol: response.symbol, change: response.priceChange, bidask: bidask });
-        }
-      });
+    binance.websockets.prevDay(coin, (error, response) => {
+      if (coin == coinname) {
+        io.sockets.emit("coin-price", { type: 'new-message', open: response.open, high: response.high, low: response.low, close: response.close, volume: response.quoteVolume, symbol: response.symbol, change: response.priceChange });
+      }
     });
   });
 
